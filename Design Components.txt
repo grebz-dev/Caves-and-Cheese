@@ -1,6 +1,10 @@
 #Design components for Caves and Cheese interface
 
-Actions:
+Initial player stat points = 40 (distributed as desired)
+
+Initial player health = 20
+
+Stats:
 Ranged attack
 Magic attack
 Melee attack
@@ -11,8 +15,8 @@ Sneak
 Steal
 Deceive
 Dexterity (Climb, jump)
-Carry
-Craft
+Craft/Improvise
+Health
 
 Traits:
 Strength (Moving things)
