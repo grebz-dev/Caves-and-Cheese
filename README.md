@@ -1,2 +1,2 @@
 # Caves-and-Cheese
-A game manager for a simplified D&amp;D derivative
+A game manager for a simplified DnD derivative
