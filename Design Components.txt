@@ -1,0 +1,22 @@
+#Design components for Caves and Cheese interface
+
+Actions:
+Ranged attack
+Magic attack
+Melee attack
+Defend/Evade
+Persuade
+Heal (self or someone else)
+Sneak
+Steal
+Deceive
+Dexterity (Climb, jump)
+Carry
+Craft
+
+Traits:
+Strength (Moving things)
+Size (Being places)
+Carry capacity
+
+Roll determinant: Random value 1-20 for any action, with ability points added after. 20 amazing success, 11-19 reasonable success, 2-10 failure, 1 spectacular failure
