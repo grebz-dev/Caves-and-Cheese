@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QWidget
 
 class PlayerWidget(QWidget):
 
-	def __init__(self,parent,stats):
+	def __init__(self,stats):
 		self.stats = stats
 		super().__init__()
 		self.initUI()
@@ -11,4 +11,13 @@ class PlayerWidget(QWidget):
 	
 		for stat in stats:
 		
-class StatWidget(QWidget):
+# class StatWidget(QWidget):
+	
+	def __init__(self, statName, statValue):
+		self.statName = statName
+		self.statValue = statValue
+		super().__init__()
+		self.initUI()
+		
+	def initUI(self):
+		
