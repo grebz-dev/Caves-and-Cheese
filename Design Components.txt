@@ -12,8 +12,6 @@ Defend/Evade
 Persuade
 Heal (self or someone else)
 Sneak
-Steal
-Deceive
 Dexterity (Climb, jump)
 Craft/Improvise
 Health
