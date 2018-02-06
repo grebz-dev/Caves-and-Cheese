@@ -20,11 +20,19 @@ class StatWidget(QWidget):
 		self.initUI()
 		
 	def initUI(self):
-	
-		groupbox = QGroupBox(self.name,self)
-		statBox = QLineEdit(self)
+		statText = QLineEdit(self.buff, self)
+		rollButton = QPushButton("Roll", self)
+		display = QLCDNumber(self)
 		
 		vbox = QVBoxLayout(self)
-		vbox.addWidget()
+		vbox.addWidget(statText)
+		vbox.addWidget(rollButton)
+		vbox.addWidget(display)
 		
+		groupBox = QGroupBox(self.name,self)
+		groupBox.addLayout(vbox)
 		
+		layout = QHBoxLayout(self)
+		layout.addWidget(groupBox)
+		
+		self.setLayout(layout)
