@@ -1,24 +1,24 @@
 #Caves and Cheese player design form
 
-NAME=
-PLAYERNAME=
+CHARACTER_NAME=
+PLAYER_NAME=
 
-#Distribute 40 points amongst ALL categories. If you don't want to assign a value, mark '0'
-
+#Distribute 40 points amongst ALL categories. If you don't want to assign a value, mark 0.
 #Stats - boost rolls to determine actions
 
-RANGED_ATTACK=
-MAGIC=
-MELEE_ATTACK=
-DEFENCE=
-PERSUADE=
-HEAL=
-SNEAK=
-DEXTERITY=
-CRAFTING=
-HEALTH_BONUS=
+Range=
+Magic=
+Melee=
+Defense=
+Persuasion=
+Healing=
+Sneak=
+Dexterity=
+Crafting=
+
 
 #Traits - score alone determines ability to perform actions
 STRENGTH=
 SIZE=
 CAPACITY=
+EXTRA_HEALTH=
