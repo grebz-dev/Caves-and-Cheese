@@ -13,5 +13,6 @@ if __name__ == '__main__':
 	layout=QVBoxLayout()
 	layout.addWidget(player)
 	w.setLayout(layout)
+	w.move(300,500)
 	w.show()
 	sys.exit(app.exec_())
