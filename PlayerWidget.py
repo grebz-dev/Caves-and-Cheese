@@ -35,12 +35,12 @@ class PlayerWidget(QWidget):
 			stats[split[0]]=split[1]
 	return stats
 		
-class StatWidget(QWidget):
+class StatWidget(QGroupBox):
 	
 	def __init__(self, name, buff):
 		self.name = name
 		self.buff = buff
-		super().__init__()
+		super().__init__(name)
 		self.initUI()
 		
 	def initUI(self):
@@ -53,10 +53,4 @@ class StatWidget(QWidget):
 		vbox.addWidget(rollButton)
 		vbox.addWidget(display)
 		
-		groupBox = QGroupBox(self.name,self)
-		groupBox.addLayout(vbox)
-		
-		layout = QHBoxLayout(self)
-		layout.addWidget(groupBox)
-		
-		self.setLayout(layout)
+		self.setLayout(vbox)
