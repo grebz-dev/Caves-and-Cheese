@@ -8,7 +8,9 @@ class PlayerWidget(QWidget):
 		self.initUI()
 		
 	def initUI(self):
-		hbox = QHBoxLayout(self)
+		vbox = QVBoxLayout()
+		
+		hbox = QHBoxLayout()
 		for key, value in self.stats.items():
 			if(key=="CHARACTER_NAME"):
 				self.strength=self.stats[key]
@@ -25,7 +27,8 @@ class PlayerWidget(QWidget):
 			else:
 				swidget = StatWidget(key,value)
 				hbox.addWidget(swidget)
-		self.setLayout(hbox)
+		vbox.addLayout(hbox)
+		self.setLayout(vbox)
 	
 	def parseStats(self, file):
 		stats = {}
