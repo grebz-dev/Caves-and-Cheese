@@ -1,39 +1,40 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber
 
 class PlayerWidget(QWidget):
 
 	def __init__(self, statFile):
-		self.stats = parseStats(statFile)
+		self.stats = self.parseStats(statFile)
 		super().__init__()
 		self.initUI()
 		
 	def initUI(self):
 		hbox = QHBoxLayout(self)
-		for stat in self.stats:
-			for key, value in self.stats.iteritems():
-				if(key=="CHARACTER_NAME"):
-					self.strength=self.stats[key]
-				else if(key=="PLAYER_NAME"):
-					self.strength=self.stats[key]
-				else if(key=="STRENGTH"):
-					self.strength=self.stats[key]
-				else if (key=="SIZE"):
-					self.size=self.stats[key]
-				else if (key=="CAPACITY"):
-					self.capacity=self.stats[key]
-				else if (key=="EXTRA_HEALTH"):
-					self.extrahealth=self.stats[key]
-				else:
-					swidget = StatWidget(key,value)
-					hbox.addWidget(swidget)
+		for key, value in self.stats.items():
+			if(key=="CHARACTER_NAME"):
+				self.strength=self.stats[key]
+			elif(key=="PLAYER_NAME"):
+				self.strength=self.stats[key]
+			elif(key=="STRENGTH"):
+				self.strength=self.stats[key]
+			elif (key=="SIZE"):
+				self.size=self.stats[key]
+			elif (key=="CAPACITY"):
+				self.capacity=self.stats[key]
+			elif (key=="EXTRA_HEALTH"):
+				self.extrahealth=self.stats[key]
+			else:
+				swidget = StatWidget(key,value)
+				hbox.addWidget(swidget)
+		self.setLayout(hbox)
 	
-	def parseStats(file):
-	stats = {};
-	for line in file:
-		if not line.startswith('#'):
-			split = line.split('=')
-			stats[split[0]]=split[1]
-	return stats
+	def parseStats(self, file):
+		stats = {}
+		
+		for line in file:
+			if line and not line.startswith('#') and not line.startswith("\n"):
+				split = line.split('=')
+				stats[split[0]]=split[1].strip()
+		return stats
 		
 class StatWidget(QGroupBox):
 	
