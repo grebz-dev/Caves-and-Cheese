@@ -18,7 +18,7 @@ Crafting=19
 
 
 #Traits - score alone determines ability to perform actions
-STRENGTH=yes
-SIZE=yes
-CAPACITY=true
-EXTRA_HEALTH=true
+STRENGTH=12
+SIZE=2
+CAPACITY=12
+EXTRA_HEALTH=13
