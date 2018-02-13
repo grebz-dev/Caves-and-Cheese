@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout
 
 class PlayerWidget(QWidget):
 
-	def __init__(self, name, statFile):
+	def __init__(self, statFile):
 		self.stats = parseStats(statFile)
 		super().__init__()
 		self.initUI()
@@ -11,17 +11,17 @@ class PlayerWidget(QWidget):
 		hbox = QHBoxLayout(self)
 		for stat in self.stats:
 			for key, value in self.stats.iteritems():
-				if(key="CHARACTER_NAME"):
+				if(key=="CHARACTER_NAME"):
 					self.strength=self.stats[key]
-				else if(key="PLAYER_NAME"):
+				else if(key=="PLAYER_NAME"):
 					self.strength=self.stats[key]
-				else if(key="STRENGTH"):
+				else if(key=="STRENGTH"):
 					self.strength=self.stats[key]
-				else if (key="SIZE"):
+				else if (key=="SIZE"):
 					self.size=self.stats[key]
-				else if (key="CAPACITY"):
+				else if (key=="CAPACITY"):
 					self.capacity=self.stats[key]
-				else if (key="EXTRA_HEALTH"):
+				else if (key=="EXTRA_HEALTH"):
 					self.extrahealth=self.stats[key]
 				else:
 					swidget = StatWidget(key,value)
