@@ -14,5 +14,6 @@ if __name__ == '__main__':
 	layout.addWidget(player)
 	w.setLayout(layout)
 	w.move(300,500)
+	w.resize(0,w.height())
 	w.show()
 	sys.exit(app.exec_())

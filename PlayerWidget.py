@@ -33,9 +33,14 @@ class PlayerWidget(QGroupBox):
 		
 		stat_stack = QVBoxLayout()
 		
-		stat_stack.addWidget(LabelBoxWidget("Health",self.health))
-		stat_stack.addWidget(LabelBoxWidget("Strength",self.strength))
-		stat_stack.addWidget(LabelBoxWidget("Size",self.size))
+		self.healthbox = LabelBoxWidget("Health",self.health)
+		self.strengthbox = LabelBoxWidget("Strength",self.strength)
+		self.sizebox = LabelBoxWidget("Size",self.size)
+		
+		stat_stack.addWidget(self.healthbox)
+		stat_stack.addWidget(self.strengthbox)
+		stat_stack.addWidget(self.sizebox)
+		
 		
 		top_line.addLayout(stat_stack)
 		
@@ -76,6 +81,7 @@ class StatWidget(QGroupBox):
 		vbox.addWidget(rollButton)
 		vbox.addWidget(display)
 		self.setLayout(vbox)
+		self.setFixedHeight(200)
 
 class LabelBoxWidget(QGroupBox):
 	
@@ -90,6 +96,7 @@ class LabelBoxWidget(QGroupBox):
 		vbox = QVBoxLayout()
 		vbox.addWidget(statText)
 		self.setLayout(vbox)
+		self.setFixedWidth(150)
 		
 class InventoryWidget(QGroupBox):
 
