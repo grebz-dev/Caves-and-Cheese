@@ -1,24 +1,31 @@
-#Caves and Cheese player design form
+#Caves and Cheese player design form 
 
 CHARACTER_NAME=Paul
 PLAYER_NAME=Rebekah
 
-#Distribute 40 points amongst ALL categories. If you don't want to assign a value, mark 0.
+#Distribute 40 points amongst ALL categories, including stats and fixed traits. If you
+#don't want to assign a value, mark the field 0.
 #Stats - boost rolls to determine actions
 
-Range=12
-Magic=36
-Melee=17
-Defense=q
-Persuasion=1
-Healing=11
-Sneak=12
-Dexterity=14
-Crafting=19
+Range=10
+Magic=10
+Melee=10
+Defense=10
+Persuasion=10
+Healing=10
+Sneak=10
+Dexterity=10
+Crafting=10
+Blarg=3
 
 
 #Traits - score alone determines ability to perform actions
-STRENGTH=12
-SIZE=2
-CAPACITY=12
-EXTRA_HEALTH=13
+STRENGTH=10
+SIZE=10
+CAPACITY=10
+HEALTH=20
+EXTRA_HEALTH=10
+
+#Items - The following are items that your character is carrying. Obviously, you cannot
+#        carry more items than your CAPACITY would allow. Extra items will be truncated.
+#        Each item MUST be preceded by a @ symbol, or else it will be parsed as a stat.

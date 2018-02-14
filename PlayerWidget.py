@@ -5,7 +5,6 @@ class PlayerWidget(QGroupBox):
 
 	def __init__(self, statFile):
 		self.stats = self.parseStats(statFile)
-		self.health = 20
 		self.initUI()
 		
 	def initUI(self):
@@ -24,8 +23,11 @@ class PlayerWidget(QGroupBox):
 				self.size=self.stats[key]
 			elif (key=="CAPACITY"):
 				self.capacity=self.stats[key]
+			elif (key=="HEALTH"):
+				self.health=self.stats[key]
 			elif (key=="EXTRA_HEALTH"):
-				self.health = self.health + int(self.stats[key])
+				self.health = int(self.health) + int(self.stats[key])
+				self.stats[key] = 0
 			else:
 				swidget = StatWidget(key,value)
 				bottom_line.addWidget(swidget)
