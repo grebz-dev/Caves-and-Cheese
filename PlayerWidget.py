@@ -1,21 +1,23 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem
+from PyQt5.QtGui import QPalette, QColor
 
-class PlayerWidget(QWidget):
+class PlayerWidget(QGroupBox):
 
 	def __init__(self, statFile):
 		self.stats = self.parseStats(statFile)
-		super().__init__()
+		self.health = 20
 		self.initUI()
 		
 	def initUI(self):
-		vbox = QVBoxLayout()
 		
-		hbox = QHBoxLayout()
+		top_line = QHBoxLayout()
+		bottom_line = QHBoxLayout()
+		
 		for key, value in self.stats.items():
 			if(key=="CHARACTER_NAME"):
-				self.strength=self.stats[key]
+				self.character=self.stats[key]
 			elif(key=="PLAYER_NAME"):
-				self.strength=self.stats[key]
+				self.player=self.stats[key]
 			elif(key=="STRENGTH"):
 				self.strength=self.stats[key]
 			elif (key=="SIZE"):
@@ -23,11 +25,25 @@ class PlayerWidget(QWidget):
 			elif (key=="CAPACITY"):
 				self.capacity=self.stats[key]
 			elif (key=="EXTRA_HEALTH"):
-				self.extrahealth=self.stats[key]
+				self.health = self.health + int(self.stats[key])
 			else:
 				swidget = StatWidget(key,value)
-				hbox.addWidget(swidget)
-		vbox.addLayout(hbox)
+				bottom_line.addWidget(swidget)
+		super().__init__(self.character + " - " + self.player)
+		
+		stat_stack = QVBoxLayout()
+		
+		stat_stack.addWidget(LabelBoxWidget("Health",self.health))
+		stat_stack.addWidget(LabelBoxWidget("Strength",self.strength))
+		stat_stack.addWidget(LabelBoxWidget("Size",self.size))
+		
+		top_line.addLayout(stat_stack)
+		
+		top_line.addWidget(InventoryWidget(self.capacity))
+		
+		vbox = QVBoxLayout()
+		vbox.addLayout(top_line)
+		vbox.addLayout(bottom_line)
 		self.setLayout(vbox)
 	
 	def parseStats(self, file):
@@ -56,5 +72,35 @@ class StatWidget(QGroupBox):
 		vbox.addWidget(statText)
 		vbox.addWidget(rollButton)
 		vbox.addWidget(display)
+		self.setLayout(vbox)
+
+class LabelBoxWidget(QGroupBox):
+	
+	def __init__(self, name, value):
+		self.name = name
+		self.value = value
+		super().__init__(name)
+		self.initUI()
 		
+	def initUI(self):
+		statText = QLineEdit(str(self.value), self)
+		vbox = QVBoxLayout()
+		vbox.addWidget(statText)
+		self.setLayout(vbox)
+		
+class InventoryWidget(QGroupBox):
+
+	def __init__(self, capacity):
+		self.capacity = int(capacity)
+		super().__init__("Inventory")
+		self.initUI()
+	def initUI(self):
+		list = QListWidget()
+		vbox = QVBoxLayout()
+		for i in range(self.capacity):
+			item = QLineEdit()
+			listWidgetItem = QListWidgetItem(list)
+			list.addItem(listWidgetItem)
+			list.setItemWidget(listWidgetItem, item)
+		vbox.addWidget(list)
 		self.setLayout(vbox)
