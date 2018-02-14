@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem
-from PyQt5.QtGui import QPalette, QColor
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem, QLabel
+from PyQt5.QtGui import QIcon, QPixmap
 
 class PlayerWidget(QGroupBox):
 
@@ -40,6 +40,9 @@ class PlayerWidget(QGroupBox):
 		top_line.addLayout(stat_stack)
 		
 		top_line.addWidget(InventoryWidget(self.capacity))
+		logo = QLabel(self)
+		logo.setPixmap(QPixmap("logo-text.png"))
+		top_line.addWidget(logo)
 		
 		vbox = QVBoxLayout()
 		vbox.addLayout(top_line)
