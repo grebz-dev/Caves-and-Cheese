@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QWidget, QFileDialog, QVBoxLayout, QHBoxLayout, QPushButton
+from PyQt5.QtWidgets import QWidget, QFileDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel
+from PyQt5.QtGui import QPixmap
 
 def export(data, file):
 	tdata = data
@@ -25,9 +26,9 @@ class SplashWidget(QWidget):
 		
 		hbox = QHBoxLayout(self)
 		hbox.addStretch()
-		open_button = QPushButton(self, "Open Character")
-		new_button = QPushButton(self, "New Empty Character Template")
-		exit_button = QPushButton(self, "Exit Caves and Cheese")
+		open_button = QPushButton("Open Character")
+		new_button = QPushButton("New Empty Character Template")
+		exit_button = QPushButton("Exit Caves and Cheese")
 		hbox.addWidget(open_button)
 		hbox.addWidget(new_button)
 		hbox.addWidget(exit_button)
