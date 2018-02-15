@@ -11,7 +11,7 @@ def export(data, file):
 				file.append(key + "=" + value)
 				
 class SplashWidget(QWidget):
-	
+	fileName = ''
 	def __init__(self):
 		super().__init__()
 		self.initUI()
@@ -26,12 +26,25 @@ class SplashWidget(QWidget):
 		
 		hbox = QHBoxLayout(self)
 		hbox.addStretch()
-		open_button = QPushButton("Open Character")
+		self.open_button = QPushButton("Open Character")
 		new_button = QPushButton("New Empty Character Template")
 		exit_button = QPushButton("Exit Caves and Cheese")
-		hbox.addWidget(open_button)
+		
+		self.open_button.clicked.connect(self.openDialog)
+		
+		hbox.addWidget(self.open_button)
 		hbox.addWidget(new_button)
 		hbox.addWidget(exit_button)
 		
+		
 		vbox.addLayout(hbox)
 		self.setLayout(vbox)
+	
+	def setFileName(self, name):
+		self.fileName=name
+	
+	def openDialog(self):    
+		options = QFileDialog.Options()
+		fileName, _ = QFileDialog.getOpenFileName(None,"QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=options)
+		if fileName:
+			self.fileName = fileName
