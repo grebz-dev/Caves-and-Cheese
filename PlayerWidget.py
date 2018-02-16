@@ -32,7 +32,6 @@ class PlayerWidget(QGroupBox):
 				swidget = StatWidget(key,value)
 				bottom_line.addWidget(swidget)
 		super().__init__(self.character + " - " + self.player)
-		
 		stat_stack = QVBoxLayout()
 		
 		self.healthbox = LabelBoxWidget("Health",self.health)
@@ -56,9 +55,9 @@ class PlayerWidget(QGroupBox):
 		vbox.addLayout(bottom_line)
 		self.setLayout(vbox)
 	
-	def parseStats(self, file):
+	def parseStats(self, filename):
 		stats = {}
-		
+		file = open(filename)
 		for line in file:
 			if line and not line.startswith('#') and not line.startswith("\n"):
 				split = line.split('=')
