@@ -34,23 +34,8 @@ EXTRA_HEALTH=
 #        Each item MUST be preceded by a @ symbol, or else it will be parsed as a stat.
 """
 
-def export(data, filename):
-	tdata = data
-	infile = open(filename)
-	afile = open(filename,'a')
-	for key, value in tdata.items():
-		for line in infile:
-			if line.split("=")[0] == key:
-				line = key + "=" + value
-			else:
-				afile.write(key + "=" + value)
-
-def save(data, filename):
-	newTemplateFile(filename)
-	export(data, filename)
-
 def newTemplateFile(filename):
-	file = open(filename,'a')
+	file = open(filename,'w+')
 	file.write(template)
 				
 class SplashWidget(QWidget):
@@ -85,7 +70,7 @@ class SplashWidget(QWidget):
 	
 	def openDialog(self):    
 		options = QFileDialog.Options()
-		filename, _ = QFileDialog.getOpenFileName(None,"QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=options)
+		filename, _ = QFileDialog.getOpenFileName(None,"QFileDialog.getOpenFileName()", "","Caves and Cheese Files (*.cnc)", options=options)
 		if filename:
 			self.fileOpened.emit(filename)
 	

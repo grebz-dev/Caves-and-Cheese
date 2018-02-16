@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem, QLabel
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem, QLabel, QFileDialog
 from PyQt5.QtGui import QIcon, QPixmap
-from save_open_new import save
+from save_open_new import template
 
 class PlayerWidget(QGroupBox):
 
@@ -32,7 +32,7 @@ class PlayerWidget(QGroupBox):
 			else:
 				swidget = StatWidget(key,value)
 				bottom_line.addWidget(swidget)
-
+				
 		super().__init__(self.character + " - " + self.player)
 		stat_stack = QVBoxLayout()
 		
@@ -49,6 +49,7 @@ class PlayerWidget(QGroupBox):
 		
 		self.save_button = QPushButton("Save Character")
 		self.save_button.setFixedWidth(200)
+		self.save_button.clicked.connect(self.saveDialog)
 		self.save_button_layout = QHBoxLayout()
 		self.save_button_layout.addWidget(self.save_button)
 		
@@ -79,9 +80,11 @@ class PlayerWidget(QGroupBox):
 	def saveDialog(self):
 		options = QFileDialog.Options()
 		filename, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()","","Caves and Cheese Files (*.cnc)", options=options)
-		if filename:
-			newTemplateFile(filename)
-		
+		#if filename:
+	
+	def export(self, filename):
+		pass
+			
 class StatWidget(QGroupBox):
 	
 	def __init__(self, name, buff):
