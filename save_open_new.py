@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QFileDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel
 from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import pyqtSignal
 
 def export(data, file):
 	tdata = data
@@ -11,7 +12,9 @@ def export(data, file):
 				file.append(key + "=" + value)
 				
 class SplashWidget(QWidget):
-	fileName = ''
+	
+	fileOpened=pyqtSignal(str)
+
 	def __init__(self):
 		super().__init__()
 		self.initUI()
@@ -36,15 +39,11 @@ class SplashWidget(QWidget):
 		hbox.addWidget(new_button)
 		hbox.addWidget(exit_button)
 		
-		
 		vbox.addLayout(hbox)
 		self.setLayout(vbox)
 	
-	def setFileName(self, name):
-		self.fileName=name
-	
 	def openDialog(self):    
 		options = QFileDialog.Options()
-		fileName, _ = QFileDialog.getOpenFileName(None,"QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=options)
-		if fileName:
-			self.fileName = fileName
+		filename, _ = QFileDialog.getOpenFileName(None,"QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=options)
+		if filename:
+			self.fileOpened.emit(filename)
