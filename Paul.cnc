@@ -4,7 +4,7 @@ CHARACTER_NAME=Paul
 PLAYER_NAME=Rebekah
 
 #Distribute 40 points amongst ALL categories, including stats and fixed traits. If you
-#don't want to assign a value, mark the field 0.
+#don't want to assign a value, mark the field 0. DO NOT LEAVE VALUES BLANK
 
 #Stats - boost rolls to determine actions
 Range=10

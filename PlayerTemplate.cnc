@@ -4,9 +4,9 @@ CHARACTER_NAME=
 PLAYER_NAME=
 
 #Distribute 40 points amongst ALL categories, including stats and fixed traits. If you
-#don't want to assign a value, mark the field 0.
-#Stats - boost rolls to determine actions
+#don't want to assign a value, mark the field 0. DO NOT LEAVE VALUES BLANK
 
+#Stats - boost rolls to determine actions
 Range=
 Magic=
 Melee=
