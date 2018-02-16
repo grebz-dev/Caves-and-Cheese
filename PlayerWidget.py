@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem, QLabel
 from PyQt5.QtGui import QIcon, QPixmap
+from save_open_new import save
 
 class PlayerWidget(QGroupBox):
 
@@ -31,6 +32,7 @@ class PlayerWidget(QGroupBox):
 			else:
 				swidget = StatWidget(key,value)
 				bottom_line.addWidget(swidget)
+
 		super().__init__(self.character + " - " + self.player)
 		stat_stack = QVBoxLayout()
 		
@@ -42,13 +44,23 @@ class PlayerWidget(QGroupBox):
 		stat_stack.addWidget(self.strengthbox)
 		stat_stack.addWidget(self.sizebox)
 		
-		
+		save_stack = QVBoxLayout()
 		top_line.addLayout(stat_stack)
+		
+		self.save_button = QPushButton("Save Character")
+		self.save_button.setFixedWidth(200)
+		self.save_button_layout = QHBoxLayout()
+		self.save_button_layout.addWidget(self.save_button)
+		
+		save_stack.addLayout(self.save_button_layout)
 		
 		top_line.addWidget(InventoryWidget(self.capacity))
 		logo = QLabel(self)
 		logo.setPixmap(QPixmap("logo-text.png"))
-		top_line.addWidget(logo)
+		save_stack.addWidget(logo)
+
+		
+		top_line.addLayout(save_stack)
 		
 		vbox = QVBoxLayout()
 		vbox.addLayout(top_line)
@@ -63,6 +75,12 @@ class PlayerWidget(QGroupBox):
 				split = line.split('=')
 				stats[split[0]]=split[1].strip()
 		return stats
+	
+	def saveDialog(self):
+		options = QFileDialog.Options()
+		filename, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()","","Caves and Cheese Files (*.cnc)", options=options)
+		if filename:
+			newTemplateFile(filename)
 		
 class StatWidget(QGroupBox):
 	
