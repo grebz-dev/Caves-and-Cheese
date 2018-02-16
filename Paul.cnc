@@ -5,8 +5,8 @@ PLAYER_NAME=Rebekah
 
 #Distribute 40 points amongst ALL categories, including stats and fixed traits. If you
 #don't want to assign a value, mark the field 0.
-#Stats - boost rolls to determine actions
 
+#Stats - boost rolls to determine actions
 Range=10
 Magic=10
 Melee=10
@@ -16,7 +16,6 @@ Healing=10
 Sneak=10
 Dexterity=10
 Crafting=10
-Blarg=3
 
 
 #Traits - score alone determines ability to perform actions
