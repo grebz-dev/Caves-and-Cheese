@@ -1,10 +1,13 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem, QLabel, QFileDialog
 from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5.QtCore import pyqtSignal
 
-class PlayerWidget(QGroupBox):
+class PlayerWidget(QGroupBox):	
 
 	def __init__(self, statFile):
-		self.stats = self.parseStats(statFile)
+		self.inventory = []
+		self.stats = {}
+		self.parseStats(statFile)
 		self.initUI()
 		
 	def initUI(self):
@@ -31,6 +34,7 @@ class PlayerWidget(QGroupBox):
 			else:
 				swidget = StatWidget(key,value)
 				bottom_line.addWidget(swidget)
+				swidget.widgetUpdate.connect(self.updateStat)
 				
 		super().__init__(self.character + " - " + self.player)
 		stat_stack = QVBoxLayout()
@@ -38,6 +42,10 @@ class PlayerWidget(QGroupBox):
 		self.healthbox = LabelBoxWidget("Health",self.health)
 		self.strengthbox = LabelBoxWidget("Strength",self.strength)
 		self.sizebox = LabelBoxWidget("Size",self.size)
+		
+		self.healthbox.widgetUpdate.connect(self.updateStat)
+		self.strengthbox.widgetUpdate.connect(self.updateStat)
+		self.sizebox.widgetUpdate.connect(self.updateStat)
 		
 		stat_stack.addWidget(self.healthbox)
 		stat_stack.addWidget(self.strengthbox)
@@ -54,7 +62,9 @@ class PlayerWidget(QGroupBox):
 		
 		save_stack.addLayout(self.save_button_layout)
 		
-		top_line.addWidget(InventoryWidget(self.capacity))
+		inventory = InventoryWidget(self.capacity)
+		
+		top_line.addWidget(inventory)
 		logo = QLabel(self)
 		logo.setPixmap(QPixmap("logo-text.png"))
 		save_stack.addWidget(logo)
@@ -66,15 +76,19 @@ class PlayerWidget(QGroupBox):
 		vbox.addLayout(top_line)
 		vbox.addLayout(bottom_line)
 		self.setLayout(vbox)
+		
+	def updateStat(self, key, value):
+		self.stats[key]=value
 	
 	def parseStats(self, filename):
-		stats = {}
 		file = open(filename)
 		for line in file:
 			if line and not line.startswith('#') and not line.startswith("\n"):
-				split = line.split('=')
-				stats[split[0]]=split[1].strip()
-		return stats
+				if line.startswith('@'):
+					self.inventory.append(line)
+				else:
+					split = line.split('=')
+					self.stats[split[0]]=split[1].strip()
 	
 	def saveDialog(self):
 		options = QFileDialog.Options()
@@ -84,10 +98,16 @@ class PlayerWidget(QGroupBox):
 	
 	def export(self, filename):
 		file = open(filename,'w+')
+		
 		for key, value in self.stats.items():
 			file.write(key+"="+str(value)+"\n")
+		
+		for item in self.inventory:
+			file.write('@'+item)
 			
 class StatWidget(QGroupBox):
+	
+	widgetUpdate=pyqtSignal(str,str)
 	
 	def __init__(self, name, buff):
 		self.name = name
@@ -96,18 +116,24 @@ class StatWidget(QGroupBox):
 		self.initUI()
 		
 	def initUI(self):
-		statText = QLineEdit(self.buff, self)
+		self.statLine = QLineEdit(self.buff, self)
 		rollButton = QPushButton("Roll", self)
 		display = QLCDNumber(self)
 		
 		vbox = QVBoxLayout(self)
-		vbox.addWidget(statText)
+		vbox.addWidget(self.statLine)
 		vbox.addWidget(rollButton)
 		vbox.addWidget(display)
 		self.setLayout(vbox)
 		self.setFixedHeight(200)
+		self.statLine.textChanged.connect(self.valUpdate)
+	
+	def valUpdate(self):
+		self.widgetUpdate.emit(self.name,self.statLine.text())
 
 class LabelBoxWidget(QGroupBox):
+	
+	widgetUpdate=pyqtSignal(str,str)
 	
 	def __init__(self, name, value):
 		self.name = name
@@ -116,11 +142,15 @@ class LabelBoxWidget(QGroupBox):
 		self.initUI()
 		
 	def initUI(self):
-		statText = QLineEdit(str(self.value), self)
+		self.statLine = QLineEdit(str(self.value), self)
 		vbox = QVBoxLayout()
-		vbox.addWidget(statText)
+		vbox.addWidget(self.statLine)
 		self.setLayout(vbox)
 		self.setFixedWidth(150)
+		self.statLine.textChanged.connect(self.valUpdate)
+	
+	def valUpdate(self):
+		self.widgetUpdate.emit(self.name,self.statLine.text())
 		
 class InventoryWidget(QGroupBox):
 
