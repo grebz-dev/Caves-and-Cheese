@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QMainWindow
 from PlayerWidget import PlayerWidget
-from save_open_new import SplashWidget
+from open_new import SplashWidget
 from PyQt5.QtCore import pyqtSlot
 	
 class MainWindow(QMainWindow):

@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem, QLabel, QFileDialog
 from PyQt5.QtGui import QIcon, QPixmap
-from save_open_new import template
 
 class PlayerWidget(QGroupBox):
 
@@ -80,10 +79,13 @@ class PlayerWidget(QGroupBox):
 	def saveDialog(self):
 		options = QFileDialog.Options()
 		filename, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()","","Caves and Cheese Files (*.cnc)", options=options)
-		#if filename:
+		if filename:
+			self.export(filename)
 	
 	def export(self, filename):
-		pass
+		file = open(filename,'w+')
+		for key, value in self.stats.items():
+			file.write(key+"="+str(value)+"\n")
 			
 class StatWidget(QGroupBox):
 	
