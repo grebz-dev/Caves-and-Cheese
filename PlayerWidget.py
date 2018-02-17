@@ -27,7 +27,7 @@ class PlayerWidget(QGroupBox):
 			elif (key=="CAPACITY"):
 				self.capacity=self.stats[key]
 				for i in range(int(self.capacity)):
-					self.inventory.append(None)
+					self.inventory.append("")
 			elif (key=="HEALTH"):
 				self.health=self.stats[key]
 			elif (key=="EXTRA_HEALTH"):
@@ -66,7 +66,7 @@ class PlayerWidget(QGroupBox):
 		
 		save_stack.addLayout(self.save_button_layout)
 		
-		inventoryElement = InventoryWidget(self.capacity)
+		inventoryElement = InventoryWidget(self.capacity,self.inventory)
 		inventoryElement.widgetUpdate.connect(self.updateInventory)
 		
 		top_line.addWidget(inventoryElement)
@@ -113,7 +113,8 @@ class PlayerWidget(QGroupBox):
 			file.write(key+"="+str(value)+"\n")
 		
 		for item in self.inventory:
-			file.write('@'+item)
+			if not item == "":
+				file.write('@'+item+"\n")
 			
 class StatWidget(QGroupBox):
 	
@@ -166,15 +167,17 @@ class InventoryWidget(QGroupBox):
 
 	widgetUpdate=pyqtSignal(str,int)
 
-	def __init__(self, capacity):
+	def __init__(self, capacity, inventory):
 		self.capacity = int(capacity)
+		self.inventory = inventory
 		super().__init__("Inventory")
 		self.initUI()
+		
 	def initUI(self):
 		list = QListWidget()
 		vbox = QVBoxLayout()
 		for i in range(self.capacity):
-			item = ListLineWidget("",i)
+			item = ListLineWidget(self.inventory[i],i)
 			item.widgetUpdate.connect(self.valUpdate)
 			listWidgetItem = QListWidgetItem(list)
 			list.addItem(listWidgetItem)
