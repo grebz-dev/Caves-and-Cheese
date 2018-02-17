@@ -26,6 +26,8 @@ class PlayerWidget(QGroupBox):
 				self.size=self.stats[key]
 			elif (key=="CAPACITY"):
 				self.capacity=self.stats[key]
+				for i in range(int(self.capacity)):
+					self.inventory.append(None)
 			elif (key=="HEALTH"):
 				self.health=self.stats[key]
 			elif (key=="EXTRA_HEALTH"):
@@ -35,8 +37,10 @@ class PlayerWidget(QGroupBox):
 				swidget = StatWidget(key,value)
 				bottom_line.addWidget(swidget)
 				swidget.widgetUpdate.connect(self.updateStat)
-				
+		
 		super().__init__(self.character + " - " + self.player)
+		
+		
 		stat_stack = QVBoxLayout()
 		
 		self.healthbox = LabelBoxWidget("Health",self.health)
@@ -62,9 +66,10 @@ class PlayerWidget(QGroupBox):
 		
 		save_stack.addLayout(self.save_button_layout)
 		
-		inventory = InventoryWidget(self.capacity)
+		inventoryElement = InventoryWidget(self.capacity)
+		inventoryElement.widgetUpdate.connect(self.updateInventory)
 		
-		top_line.addWidget(inventory)
+		top_line.addWidget(inventoryElement)
 		logo = QLabel(self)
 		logo.setPixmap(QPixmap("logo-text.png"))
 		save_stack.addWidget(logo)
@@ -79,6 +84,11 @@ class PlayerWidget(QGroupBox):
 		
 	def updateStat(self, key, value):
 		self.stats[key]=value
+		print(self.stats)
+		
+	def updateInventory(self, item, index):
+		self.inventory[index]=item
+		print(self.inventory)
 	
 	def parseStats(self, filename):
 		file = open(filename)
