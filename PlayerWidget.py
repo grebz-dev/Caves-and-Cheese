@@ -95,7 +95,7 @@ class PlayerWidget(QGroupBox):
 		for line in file:
 			if line and not line.startswith('#') and not line.startswith("\n"):
 				if line.startswith('@'):
-					self.inventory.append(line)
+					self.inventory.append(line[1:].strip())
 				else:
 					split = line.split('=')
 					self.stats[split[0]]=split[1].strip()
