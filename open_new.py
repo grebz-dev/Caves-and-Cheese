@@ -6,8 +6,9 @@ template ="""#Caves and Cheese player design form
 
 CHARACTER_NAME=
 PLAYER_NAME=
+SIZE=
 
-#Distribute 40 points amongst ALL categories, including stats and fixed traits. If you
+#Distribute 50 points amongst ALL categories, including stats and fixed traits. If you
 #don't want to assign a value, mark the field 0. DO NOT LEAVE VALUES BLANK
 
 #Stats - boost rolls to determine actions
@@ -15,23 +16,31 @@ Range=
 Magic=
 Melee=
 Defense=
-Persuasion=
+Charisma=
 Healing=
-Sneak=
 Dexterity=
-Crafting=
+Intelligence=
 
 
 #Traits - score alone determines ability to perform actions
 STRENGTH=
-SIZE=
-CAPACITY=
-HEALTH=20
 EXTRA_HEALTH=
+CAPACITY=
+
+#Set by default
+HEALTH=20
 
 #Items - The following are items that your character is carrying. Obviously, you cannot
 #        carry more items than your CAPACITY would allow. Extra items will be truncated.
 #        Each item MUST be preceded by a @ symbol, or else it will be parsed as a stat.
+
+@Rope
+@Provisions (heals +5)
+@Provisions (heals +5)
+@Hunting Knife (Damage cap 5)
+@Flint and Striker
+@Small hatchet (Damage cap 3)
+@Gold
 """
 
 def newTemplateFile(filename):

@@ -39,22 +39,19 @@ class PlayerWidget(QGroupBox):
 				bottom_line.addWidget(swidget)
 				swidget.widgetUpdate.connect(self.updateStat)
 		
-		super().__init__(self.character + " - " + self.player)
+		super().__init__(self.character + " - Size: " + size + " - " self.player)
 		
 		
 		stat_stack = QVBoxLayout()
 		
 		self.healthbox = LabelBoxWidget("Health",self.health)
 		self.strengthbox = LabelBoxWidget("Strength",self.strength)
-		self.sizebox = LabelBoxWidget("Size",self.size)
 		
 		self.healthbox.widgetUpdate.connect(self.updateStat)
 		self.strengthbox.widgetUpdate.connect(self.updateStat)
-		self.sizebox.widgetUpdate.connect(self.updateStat)
 		
 		stat_stack.addWidget(self.healthbox)
 		stat_stack.addWidget(self.strengthbox)
-		stat_stack.addWidget(self.sizebox)
 		
 		save_stack = QVBoxLayout()
 		top_line.addLayout(stat_stack)
