@@ -154,6 +154,8 @@ class LabelBoxWidget(QGroupBox):
 		
 class InventoryWidget(QGroupBox):
 
+	widgetUpdate=pyqtSignal(str,int)
+
 	def __init__(self, capacity):
 		self.capacity = int(capacity)
 		super().__init__("Inventory")
@@ -162,9 +164,29 @@ class InventoryWidget(QGroupBox):
 		list = QListWidget()
 		vbox = QVBoxLayout()
 		for i in range(self.capacity):
-			item = QLineEdit()
+			item = ListLineWidget("",i)
+			item.widgetUpdate.connect(self.valUpdate)
 			listWidgetItem = QListWidgetItem(list)
 			list.addItem(listWidgetItem)
 			list.setItemWidget(listWidgetItem, item)
 		vbox.addWidget(list)
 		self.setLayout(vbox)
+	
+	def valUpdate(self, name,index):
+		self.widgetUpdate.emit(name,index)
+		
+class ListLineWidget(QLineEdit):
+	
+	widgetUpdate=pyqtSignal(str,int)
+	
+	def __init__(self, name, index):
+		self.name=name
+		self.index=index
+		super().__init__(name)
+		self.initUI()
+		
+	def initUI(self):
+		self.textChanged.connect(self.valUpdate)
+	
+	def valUpdate(self, name):
+		self.widgetUpdate.emit(name,self.index)
