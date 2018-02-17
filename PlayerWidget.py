@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem, QLabel, QFileDialog
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import pyqtSignal
+import random
 
 class PlayerWidget(QGroupBox):	
 
@@ -34,7 +35,7 @@ class PlayerWidget(QGroupBox):
 				self.health = int(self.health) + int(self.stats[key])
 				self.stats[key] = 0
 			else:
-				swidget = StatWidget(key,value)
+				swidget = StatWidget(key, value)
 				bottom_line.addWidget(swidget)
 				swidget.widgetUpdate.connect(self.updateStat)
 		
@@ -128,24 +129,30 @@ class StatWidget(QGroupBox):
 		
 	def initUI(self):
 		self.statLine = QLineEdit(self.buff, self)
-		rollButton = QPushButton("Roll", self)
-		display = QLCDNumber(self)
+		self.rollButton = QPushButton("Roll", self)
+		self.rollNumber = QLCDNumber(self)
+		
+		self.rollButton.clicked.connect(self.roll)
 		
 		vbox = QVBoxLayout(self)
 		vbox.addWidget(self.statLine)
-		vbox.addWidget(rollButton)
-		vbox.addWidget(display)
+		vbox.addWidget(self.rollButton)
+		vbox.addWidget(self.rollNumber)
 		self.setLayout(vbox)
 		self.setFixedHeight(200)
 		self.statLine.textChanged.connect(self.valUpdate)
 	
 	def valUpdate(self):
 		self.widgetUpdate.emit(self.name,self.statLine.text())
+		self.buff = self.statLine.text()
+	
+	def roll(self):
+		self.rollNumber.display(random.randint(1,20 + int(self.buff)))
 
 class LabelBoxWidget(QGroupBox):
 	
 	widgetUpdate=pyqtSignal(str,str)
-	
+
 	def __init__(self, name, value):
 		self.name = name
 		self.value = value
