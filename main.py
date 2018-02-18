@@ -24,7 +24,7 @@ class MainWindow(QMainWindow):
 	def initGame(self, filename):
 		player = PlayerWidget(filename)
 		self.setCentralWidget(player)
-		self.resize(0,self.height())
+		self.resize(0,0)
 		
 def resource_path(relative_path):
 	if hasattr(sys, '_MEIPASS'):
