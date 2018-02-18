@@ -36,6 +36,8 @@ class PlayerWidget(QGroupBox):
 			elif (key=="EXTRA_HEALTH"):
 				self.health = int(self.health) + int(self.stats[key])
 				self.stats[key] = 0
+			elif (key=="LEVEL"):
+				self.level=self.stats[key]
 			else:
 				swidget = StatWidget(key, value)
 				bottom_line.addWidget(swidget)
@@ -46,12 +48,15 @@ class PlayerWidget(QGroupBox):
 		
 		stat_stack = QVBoxLayout()
 		
+		self.levelbox = LabelBoxWidget("Level",self.level)
 		self.healthbox = LabelBoxWidget("Health",self.health)
 		self.strengthbox = LabelBoxWidget("Strength",self.strength)
 		
+		self.levelbox.widgetUpdate.connect(self.updateStat)
 		self.healthbox.widgetUpdate.connect(self.updateStat)
 		self.strengthbox.widgetUpdate.connect(self.updateStat)
 		
+		stat_stack.addWidget(self.levelbox)
 		stat_stack.addWidget(self.healthbox)
 		stat_stack.addWidget(self.strengthbox)
 		
