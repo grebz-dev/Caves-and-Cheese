@@ -17,14 +17,13 @@ class MainWindow(QMainWindow):
 		self.setCentralWidget(self.splash)
 		self.setWindowIcon(QtGui.QIcon(resource_path('logo.png')))
 		self.move(300,500)
-		self.resize(0,self.height())
 		self.splash.fileOpened.connect(self.initGame)
 	
 	@pyqtSlot(str)
 	def initGame(self, filename):
 		player = PlayerWidget(filename)
 		self.setCentralWidget(player)
-		self.resize(0,0)
+		self.adjustSize()
 		
 def resource_path(relative_path):
 	if hasattr(sys, '_MEIPASS'):
