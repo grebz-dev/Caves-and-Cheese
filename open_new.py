@@ -30,14 +30,14 @@ CAPACITY=
 
 #Set by default
 HEALTH=20
+LEVEL=1
 
 #Items - The following are items that your character is carrying. Obviously, you cannot
 #        carry more items than your CAPACITY would allow. Extra items will be truncated.
 #        Each item MUST be preceded by a @ symbol, or else it will be parsed as a stat.
 
 @Rope
-@Provisions (heals +5)
-@Provisions (heals +5)
+@Provisions (heals +5) x2
 @Hunting Knife (Damage cap 5)
 @Flint and Striker
 @Small hatchet (Damage cap 3)
