@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineE
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import pyqtSignal
 import random
+import sys, os
 
 class PlayerWidget(QGroupBox):	
 
@@ -32,14 +33,14 @@ class PlayerWidget(QGroupBox):
 			elif (key=="HEALTH"):
 				self.health=self.stats[key]
 			elif (key=="EXTRA_HEALTH"):
-				self.health = int(self.health) + int(self.stats[key])
+				#self.health = int(self.health) + int(self.stats[key])
 				self.stats[key] = 0
 			else:
 				swidget = StatWidget(key, value)
 				bottom_line.addWidget(swidget)
 				swidget.widgetUpdate.connect(self.updateStat)
 		
-		super().__init__(self.character + " - Size: " + size + " - " + self.player)
+		super().__init__(self.character + " - Size: " + self.size + " - " + self.player)
 		
 		
 		stat_stack = QVBoxLayout()
