@@ -7,6 +7,11 @@ buildOptions = dict(packages = [], excludes = [], include_files = ["logo.png", "
 import sys
 base = 'Win32GUI' if sys.platform=='win32' else None
 
+buildOptions = {
+	"include_msvcr": True
+}
+
+
 executables = [
     Executable('main.py', base=base, targetName = 'Caves and Cheese.exe')
 ]
