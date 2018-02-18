@@ -69,7 +69,7 @@ class PlayerWidget(QGroupBox):
 		
 		top_line.addWidget(inventoryElement)
 		logo = QLabel(self)
-		logo.setPixmap(QPixmap("logo-text.png"))
+		logo.setPixmap(QPixmap(resource_path("logo-text.png")))
 		save_stack.addWidget(logo)
 
 		
@@ -207,3 +207,8 @@ class ListLineWidget(QLineEdit):
 	
 	def valUpdate(self, name):
 		self.widgetUpdate.emit(name,self.index)
+		
+def resource_path(relative_path):
+	if hasattr(sys, '_MEIPASS'):
+		return os.path.join(sys._MEIPASS, relative_path)
+	return os.path.join(os.path.abspath("."), relative_path)

@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QFileDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import pyqtSignal
+import sys, os
 
 template ="""#Caves and Cheese player design form 
 
@@ -60,7 +61,7 @@ class SplashWidget(QWidget):
 		vbox = QVBoxLayout(self)
 		
 		logo = QLabel(self)
-		logo.setPixmap(QPixmap("splash.png"))
+		logo.setPixmap(QPixmap(resource_path("splash.png")))
 		vbox.addWidget(logo)
 		
 		hbox = QHBoxLayout(self)
@@ -88,3 +89,8 @@ class SplashWidget(QWidget):
 		filename, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()","","Caves and Cheese Files (*.cnc)", options=options)
 		if filename:
 			newTemplateFile(filename)
+
+def resource_path(relative_path):
+	if hasattr(sys, '_MEIPASS'):
+		return os.path.join(sys._MEIPASS, relative_path)
+	return os.path.join(os.path.abspath("."), relative_path)
