@@ -33,7 +33,7 @@ class PlayerWidget(QGroupBox):
 			elif (key=="HEALTH"):
 				self.health=self.stats[key]
 			elif (key=="EXTRA_HEALTH"):
-				#self.health = int(self.health) + int(self.stats[key])
+				self.health = int(self.health) + int(self.stats[key])
 				self.stats[key] = 0
 			else:
 				swidget = StatWidget(key, value)
