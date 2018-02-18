@@ -128,6 +128,8 @@ class StatWidget(QGroupBox):
 		
 	def initUI(self):
 		self.statLine = QLineEdit(self.buff, self)
+		self.validator = QIntValidator()
+		self.statLine.setValidator(self.validator)
 		self.rollButton = QPushButton("Roll", self)
 		self.rollNumber = QLCDNumber(self)
 		
@@ -160,6 +162,8 @@ class LabelBoxWidget(QGroupBox):
 		
 	def initUI(self):
 		self.statLine = QLineEdit(str(self.value), self)
+		self.validator = QIntValidator()
+		self.statLine.setValidator(self.validator)
 		vbox = QVBoxLayout()
 		vbox.addWidget(self.statLine)
 		self.setLayout(vbox)
@@ -197,6 +201,7 @@ class InventoryWidget(QGroupBox):
 class ListLineWidget(QLineEdit):
 	
 	widgetUpdate=pyqtSignal(str,int)
+
 	
 	def __init__(self, name, index):
 		self.name=name
