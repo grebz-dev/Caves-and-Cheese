@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem, QLabel, QFileDialog
-from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5.QtGui import QIcon, QPixmap, QIntValidator
 from PyQt5.QtCore import pyqtSignal
 import random
 import sys, os
@@ -9,6 +9,7 @@ class PlayerWidget(QGroupBox):
 	def __init__(self, statFile):
 		self.inventory = []
 		self.stats = {}
+		self.health = 20
 		self.parseStats(statFile)
 		self.initUI()
 		
