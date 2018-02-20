@@ -21,11 +21,12 @@ exe = EXE(pyz,
           a.binaries,
           a.zipfiles,
           a.datas,
-          name='main',
+          name='Caves and Cheese',
           debug=False,
           strip=False,
           upx=True,
           runtime_tmpdir=None,
-          console=False )
+          console=False,
+		  icon="icon.ico")
 
 		  
