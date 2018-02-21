@@ -12,21 +12,23 @@ class ArmorWidget(QWidget):
 		hbox = QHBoxLayout()
 		vbox = QVBoxLayout()
 		
-		head = QLineEdit()
-		torso = QLineEdit()
-		arms = QLineEdit()
-		legs = QLineEdit()
-		feet = QLineEdit()
+		self.head = QLineEdit()
+		self.torso = QLineEdit()
+		self.arms = QLineEdit()
+		self.legs = QLineEdit()
+		self.feet = QLineEdit()
 		
-		vbox.addWidget(head)
-		vbox.addWidget(torso)
-		vbox.addWidget(arms)
-		vbox.addWidget(legs)
-		vbox.addWidget(feet)
+		vbox.addWidget(self.head)
+		vbox.addWidget(self.torso)
+		vbox.addWidget(self.arms)
+		vbox.addWidget(self.legs)
+		vbox.addWidget(self.feet)
 		
 		armor_guy = QLabel(self)
 		armor_guy.setPixmap(QPixmap(resource_path("armor_guy.png")))
 		hbox.addWidget(armor_guy)
+		hbox.addLayout(vbox)
+		self.setLayout(hbox)
 
 def resource_path(relative_path):
 	if hasattr(sys, '_MEIPASS'):
@@ -36,8 +38,6 @@ def resource_path(relative_path):
 if __name__ == '__main__':
 
 	app = QApplication(sys.argv)
-	w = QMainWindow()
-	a = ArmorWidget()
-	w.setCentralWidget(a)
+	w = ArmorWidget();
 	w.show()
 	sys.exit(app.exec_())
