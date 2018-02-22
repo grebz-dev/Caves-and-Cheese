@@ -1,6 +1,6 @@
 import sys, os
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QApplication, QMainWindow, QLineEdit
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QApplication, QMainWindow, QLineEdit, QGroupBox
 
 class ArmorWidget(QWidget):
 	
@@ -12,11 +12,11 @@ class ArmorWidget(QWidget):
 		hbox = QHBoxLayout()
 		vbox = QVBoxLayout()
 		
-		self.head = QLineEdit()
-		self.torso = QLineEdit()
-		self.arms = QLineEdit()
-		self.legs = QLineEdit()
-		self.feet = QLineEdit()
+		self.head = ArmorItemWidget("Head","Helmet of Helmeting","1")
+		self.torso = ArmorItemWidget("Torso","Breastplate of breastplating","1")
+		self.arms = ArmorItemWidget("Arms","Gloves of gloving","1")
+		self.legs = ArmorItemWidget("Legs","Pants of panting","1")
+		self.feet = ArmorItemWidget("Feet","Boots of booting","1")
 		
 		vbox.addWidget(self.head)
 		vbox.addWidget(self.torso)
@@ -29,7 +29,24 @@ class ArmorWidget(QWidget):
 		hbox.addWidget(armor_guy)
 		hbox.addLayout(vbox)
 		self.setLayout(hbox)
+		self.setFixedHeight(self.sizeHint().height())
 
+class ArmorItemWidget(QGroupBox):
+	
+	def __init__(self,location,name,buff):
+		super().__init__(location)
+		self.name = name
+		self.buff = buff
+		self.initUI()
+	
+	def initUI(self):
+		vbox = QVBoxLayout()
+		self.armorItem = QLineEdit(self.name)
+		self.buffField = QLineEdit(self.buff)
+		vbox.addWidget(self.armorItem)
+		vbox.addWidget(self.buffField)
+		self.setLayout(vbox)
+		 
 def resource_path(relative_path):
 	if hasattr(sys, '_MEIPASS'):
 		return os.path.join(sys._MEIPASS, relative_path)
