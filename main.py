@@ -1,6 +1,6 @@
 import sys, os
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QMainWindow
-from Player import PlayerWidget
+from tabs import MultiTabWidget
 from open_new import SplashWidget
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtGui
@@ -21,8 +21,8 @@ class MainWindow(QMainWindow):
 	
 	@pyqtSlot(str)
 	def initGame(self, filename):
-		player = PlayerWidget(filename)
-		self.setCentralWidget(player)
+		tabs = MultiTabWidget(filename)
+		self.setCentralWidget(tabs)
 		self.adjustSize()
 		
 def resource_path(relative_path):

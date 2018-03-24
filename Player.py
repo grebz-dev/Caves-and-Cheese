@@ -7,6 +7,7 @@ import sys, os
 class PlayerWidget(QGroupBox):	
 
 	def __init__(self, statFile):
+        print("Hey!")
 		self.inventory = []
 		self.stats = {}
 		self.health = 20

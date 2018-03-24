@@ -25,7 +25,7 @@ class ArmorWidget(QWidget):
 		vbox.addWidget(self.feet)
 		
 		armor_guy = QLabel(self)
-		armor_guy.setPixmap(QPixmap(resource_path("armor_guy.png")))
+		armor_guy.setPixmap(QPixmap(resource_path("Images/armor_guy.png")))
 		hbox.addWidget(armor_guy)
 		hbox.addLayout(vbox)
 		self.setLayout(hbox)
