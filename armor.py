@@ -1,6 +1,6 @@
 import sys, os
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QApplication, QMainWindow, QLineEdit, QGroupBox
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QApplication, QLineEdit, QGroupBox
 
 class ArmorWidget(QWidget):
 	
@@ -25,7 +25,7 @@ class ArmorWidget(QWidget):
 		vbox.addWidget(self.feet)
 		
 		armor_guy = QLabel(self)
-		armor_guy.setPixmap(QPixmap(resource_path("Images/armor_guy.png")))
+		armor_guy.setPixmap(QPixmap(resource_path("armor_guy.png")))
 		hbox.addWidget(armor_guy)
 		hbox.addLayout(vbox)
 		self.setLayout(hbox)
@@ -51,10 +51,3 @@ def resource_path(relative_path):
 	if hasattr(sys, '_MEIPASS'):
 		return os.path.join(sys._MEIPASS, relative_path)
 	return os.path.join(os.path.abspath("."), relative_path)
-	
-if __name__ == '__main__':
-
-	app = QApplication(sys.argv)
-	w = ArmorWidget();
-	w.show()
-	sys.exit(app.exec_())
