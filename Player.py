@@ -10,6 +10,8 @@ class PlayerWidget(QGroupBox):
 		print("Hey!")
 		self.inventory = []
 		self.stats = {}
+		self.notes = {}
+		self.skills = {}
 		self.health = 20
 		self.parseStats(statFile)
 		self.initUI()
@@ -102,6 +104,10 @@ class PlayerWidget(QGroupBox):
 			if line and not line.startswith('#') and not line.startswith("\n"):
 				if line.startswith('@'):
 					self.inventory.append(line[1:].strip())
+				if line.startswith('^'):
+					self.skills.append(line[1:].strip())
+				if line.startswith('?'):
+					self.notes.append(line[1:].strip())
 				else:
 					split = line.split('=')
 					self.stats[split[0]]=split[1].strip()
