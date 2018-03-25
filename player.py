@@ -1,13 +1,9 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem, QLabel, QFileDialog
-from PyQt5.QtGui import QIcon, QPixmap, QIntValidator
-from PyQt5.QtCore import pyqtSignal
 import random
 import sys, os
 
-class PlayerWidget(QGroupBox):	
+class Player(QGroupBox):	
 
 	def __init__(self, statFile):
-		print("Hey!")
 		self.inventory = []
 		self.stats = {}
 		self.notes = {}
@@ -15,80 +11,6 @@ class PlayerWidget(QGroupBox):
 		self.health = 20
 		self.parseStats(statFile)
 		self.initUI()
-		
-	def initUI(self):
-		
-		top_line = QHBoxLayout()
-		bottom_line = QHBoxLayout()
-		
-		for key, value in self.stats.items():
-			if(key=="CHARACTER_NAME"):
-				self.character=self.stats[key]
-			elif(key=="PLAYER_NAME"):
-				self.player=self.stats[key]
-			elif(key=="STRENGTH"):
-				self.strength=self.stats[key]
-			elif (key=="SIZE"):
-				self.size=self.stats[key]
-			elif (key=="CAPACITY"):
-				self.capacity=self.stats[key]
-				for i in range(int(self.capacity)):
-					self.inventory.append("")
-			elif (key=="HEALTH"):
-				self.health=self.stats[key]
-			elif (key=="EXTRA_HEALTH"):
-				self.health = int(self.health) + int(self.stats[key])
-				self.stats[key] = 0
-			elif (key=="LEVEL"):
-				self.level=self.stats[key]
-			else:
-				swidget = StatWidget(key, value)
-				bottom_line.addWidget(swidget)
-				swidget.widgetUpdate.connect(self.updateStat)
-		
-		super().__init__(self.character + " - Size: " + self.size + " - " + self.player)
-		
-		
-		stat_stack = QVBoxLayout()
-		
-		self.levelbox = LabelBoxWidget("Level",self.level)
-		self.healthbox = LabelBoxWidget("Health",self.health)
-		self.strengthbox = LabelBoxWidget("Strength",self.strength)
-		
-		self.levelbox.widgetUpdate.connect(self.updateStat)
-		self.healthbox.widgetUpdate.connect(self.updateStat)
-		self.strengthbox.widgetUpdate.connect(self.updateStat)
-		
-		stat_stack.addWidget(self.levelbox)
-		stat_stack.addWidget(self.healthbox)
-		stat_stack.addWidget(self.strengthbox)
-		
-		save_stack = QVBoxLayout()
-		top_line.addLayout(stat_stack)
-		
-		self.save_button = QPushButton("Save Character")
-		self.save_button.setFixedWidth(200)
-		self.save_button.clicked.connect(self.saveDialog)
-		self.save_button_layout = QHBoxLayout()
-		self.save_button_layout.addWidget(self.save_button)
-		
-		save_stack.addLayout(self.save_button_layout)
-		
-		inventoryElement = InventoryWidget(self.capacity,self.inventory)
-		inventoryElement.widgetUpdate.connect(self.updateInventory)
-		
-		top_line.addWidget(inventoryElement)
-		logo = QLabel(self)
-		logo.setPixmap(QPixmap(resource_path("logo-text.png")))
-		save_stack.addWidget(logo)
-
-		
-		top_line.addLayout(save_stack)
-		
-		vbox = QVBoxLayout()
-		vbox.addLayout(top_line)
-		vbox.addLayout(bottom_line)
-		self.setLayout(vbox)
 		
 	def updateStat(self, key, value):
 		self.stats[key]=value
