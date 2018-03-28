@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QWidget, QAction, QTabWidget,QVBoxLayout,QPushButton
-from Player import PlayerWidget
+from main_tab import MainTabWidget
 from notes import NotesWidget
 from armor import ArmorWidget
 from skills import SkillWidget
@@ -22,7 +22,7 @@ class MultiTabWidget(QWidget):
 		self.tab4 = QWidget()
 
 		# Add items to populate tabs
-		player = PlayerWidget(self.statFile)
+		player = MainTabWidget(self.statFile)
 		armor = ArmorWidget()
 		notes = NotesWidget()
 		skills = SkillWidget()
