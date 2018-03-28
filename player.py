@@ -9,17 +9,14 @@ class Player():
 		self.notes = {}
 		self.skills = {}
 		self.health = 20
-		self.traits = {"CHARACTER_NAME":'',"PLAYER_NAME":'',"STRENGTH":'',"CAPACITY":'',"HEALTH":'',"LEVEL":''}
+		self.traits = {"CHARACTER_NAME":'',"PLAYER_NAME":'',"STRENGTH":'',"CAPACITY":'',"HEALTH":'',"LEVEL":'',"SIZE":''}
 		self.parseStats(statFile)
-		self.initUI()
-		
+
 	def updateStat(self, key, value):
 		self.stats[key]=value
-		print(self.stats)
 		
 	def updateInventory(self, item, index):
 		self.inventory[index]=item
-		print(self.inventory)
 	
 	def parseStats(self, filename):
 		file = open(filename)
@@ -31,12 +28,11 @@ class Player():
 					self.skills.append(line[1:].strip())
 				if line.startswith('?'):
 					self.notes.append(line[1:].strip())
-				else:
+				elif ("=" in line):
 					split = line.split('=')
 					self.stats[split[0]]=split[1].strip()
 					
-		temp_items = self.stats.items()
-		for key, value in temp_items:
+		for key, value in list(self.stats.items()):
 			if (key=="EXTRA_HEALTH"):
 				self.health = int(self.health) + int(self.stats[key])
 				del self.stats[key]
@@ -49,7 +45,6 @@ class Player():
 		
 	def updateInventory(self, item, index):
 		self.inventory[index]=item
-		print(self.inventory)
 	
 	def export(self, filename):
 		file = open(filename,'w+')

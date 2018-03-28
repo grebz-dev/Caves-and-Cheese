@@ -25,7 +25,7 @@ class MultiTabWidget(QWidget):
 		player = MainTabWidget(self.player)
 		armor = ArmorWidget()
 		notes = NotesWidget()
-		skills = SkillWidget()
+		skills = SkillWidget(self.player.skills)
  
 		# Add tabs
 		self.tabs.addTab(self.tab1,"Player")

@@ -1,11 +1,12 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem, QLabel, QFileDialog
 from PyQt5.QtGui import QIcon, QPixmap, QIntValidator
 from PyQt5.QtCore import pyqtSignal
+import sys, os
 
 class MainTabWidget(QGroupBox):	
 
-	def __init__(self, player_instance):
-		self.player_instance = player_instance
+	def __init__(self, player):
+		self.player = player
 		self.initUI()
 		
 	def initUI(self):
@@ -13,23 +14,23 @@ class MainTabWidget(QGroupBox):
 		top_line = QHBoxLayout()
 		bottom_line = QHBoxLayout()
 		
-		for key, value in self.player_instance.stats.items():
+		for key, value in self.player.stats.items():
 			swidget = StatWidget(key, value)
 			bottom_line.addWidget(swidget)
-			swidget.widgetUpdate.connect(self.updateStat)
+			swidget.widgetUpdate.connect(self.player.updateStat)
 		
-		super().__init__(self.player_instance.traits["CHARACTER"] + " - Size: " + self.player_instance.traits["SIZE"] + " - " + self.player_instance.traits["PLAYER"])
+		super().__init__(self.player.traits["CHARACTER_NAME"] + " - Size: " + self.player.traits["SIZE"] + " - " + self.player.traits["PLAYER_NAME"])
 		
 		
 		stat_stack = QVBoxLayout()
 		
-		self.levelbox = LabelBoxWidget("Level",self.player_instance.traits["LEVEL"])
-		self.healthbox = LabelBoxWidget("Health",self.player_instance.traits["HEALTH"])
-		self.strengthbox = LabelBoxWidget("Strength",self.player_instance.traits["STRENGTH"])
+		self.levelbox = LabelBoxWidget("Level",self.player.traits["LEVEL"])
+		self.healthbox = LabelBoxWidget("Health",self.player.traits["HEALTH"])
+		self.strengthbox = LabelBoxWidget("Strength",self.player.traits["STRENGTH"])
 		
-		self.levelbox.widgetUpdate.connect(self.updateStat)
-		self.healthbox.widgetUpdate.connect(self.updateStat)
-		self.strengthbox.widgetUpdate.connect(self.updateStat)
+		self.levelbox.widgetUpdate.connect(self.player.updateStat)
+		self.healthbox.widgetUpdate.connect(self.player.updateStat)
+		self.strengthbox.widgetUpdate.connect(self.player.updateStat)
 		
 		stat_stack.addWidget(self.levelbox)
 		stat_stack.addWidget(self.healthbox)
@@ -46,8 +47,8 @@ class MainTabWidget(QGroupBox):
 		
 		save_stack.addLayout(self.save_button_layout)
 		
-		inventoryElement = InventoryWidget(self.capacity,self.inventory)
-		inventoryElement.widgetUpdate.connect(self.updateInventory)
+		inventoryElement = InventoryWidget(self.player.traits["CAPACITY"],self.player.inventory)
+		inventoryElement.widgetUpdate.connect(self.player.updateInventory)
 		
 		top_line.addWidget(inventoryElement)
 		logo = QLabel(self)
@@ -61,29 +62,12 @@ class MainTabWidget(QGroupBox):
 		vbox.addLayout(top_line)
 		vbox.addLayout(bottom_line)
 		self.setLayout(vbox)
-		
-	def updateStat(self, key, value):
-		self.stats[key]=value
-		
-	def updateInventory(self, item, index):
-		self.inventory[index]=item
-		print(self.inventory)
 	
 	def saveDialog(self):
 		options = QFileDialog.Options()
 		filename, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()","","Caves and Cheese Files (*.cnc)", options=options)
 		if filename:
 			self.export(filename)
-	
-	def export(self, filename):
-		file = open(filename,'w+')
-		
-		for key, value in self.stats.items():
-			file.write(key+"="+str(value)+"\n")
-		
-		for item in self.inventory:
-			if not item == "":
-				file.write('@'+item+"\n")
 			
 class StatWidget(QGroupBox):
 	
@@ -156,11 +140,13 @@ class InventoryWidget(QGroupBox):
 		list = QListWidget()
 		vbox = QVBoxLayout()
 		for i in range(self.capacity):
-			item = ListLineWidget(self.inventory[i],i)
+			item = ListLineWidget("",i)
 			item.widgetUpdate.connect(self.valUpdate)
 			listWidgetItem = QListWidgetItem(list)
 			list.addItem(listWidgetItem)
 			list.setItemWidget(listWidgetItem, item)
+		for i in range (len(self.inventory)):
+			self.valUpdate(self.inventory[i],i)
 		vbox.addWidget(list)
 		self.setLayout(vbox)
 	
