@@ -4,6 +4,7 @@ from tabs import MultiTabWidget
 from open_new import SplashWidget
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtGui
+from player import Player
 	
 class MainWindow(QMainWindow):
 	
@@ -21,7 +22,8 @@ class MainWindow(QMainWindow):
 	
 	@pyqtSlot(str)
 	def initGame(self, filename):
-		tabs = MultiTabWidget(filename)
+		player = Player(filename)
+		tabs = MultiTabWidget(player)
 		self.setCentralWidget(tabs)
 		self.adjustSize()
 		
