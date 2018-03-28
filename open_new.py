@@ -61,7 +61,7 @@ class SplashWidget(QWidget):
 		vbox = QVBoxLayout(self)
 		
 		logo = QLabel(self)
-		logo.setPixmap(QPixmap(resource_path("splash.png")))
+		logo.setPixmap(QPixmap(resource_path("Images/splash.png")))
 		vbox.addWidget(logo)
 		
 		hbox = QHBoxLayout(self)
