@@ -7,9 +7,9 @@ from skills import SkillWidget
 
 class MultiTabWidget(QWidget):
  
-	def __init__(self, statFile):
+	def __init__(self, player):
 		super().__init__()
-		self.statFile = statFile
+		self.player = player
 		self.initUI()
 
 	def initUI(self):
@@ -22,7 +22,7 @@ class MultiTabWidget(QWidget):
 		self.tab4 = QWidget()
 
 		# Add items to populate tabs
-		player = MainTabWidget(self.statFile)
+		player = MainTabWidget(self.player)
 		armor = ArmorWidget()
 		notes = NotesWidget()
 		skills = SkillWidget()
