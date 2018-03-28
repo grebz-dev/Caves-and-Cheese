@@ -1,7 +1,7 @@
 import random
 import sys, os
 
-class Player(QGroupBox):	
+class Player():	
 
 	def __init__(self, statFile):
 		self.inventory = []
@@ -9,6 +9,7 @@ class Player(QGroupBox):
 		self.notes = {}
 		self.skills = {}
 		self.health = 20
+		self.traits = {"CHARACTER_NAME":NULL,"PLAYER_NAME":NULL,"STRENGTH":NULL,"CAPACITY":NULL,"HEALTH":NULL,"LEVEL":NULL}
 		self.parseStats(statFile)
 		self.initUI()
 		
@@ -33,6 +34,16 @@ class Player(QGroupBox):
 				else:
 					split = line.split('=')
 					self.stats[split[0]]=split[1].strip()
+					
+		temp_items = self.stats.items()
+		for key, value in temp_items:
+			if (key=="EXTRA_HEALTH"):
+				self.health = int(self.health) + int(self.stats[key])
+				del self.stats[key]
+			elif (key in self.traits):
+				self.traits[key] = value
+				del self.stats[key]
+				
 	
 	def export(self, filename):
 		file = open(filename,'w+')
