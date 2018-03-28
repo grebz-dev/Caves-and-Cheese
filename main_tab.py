@@ -5,8 +5,7 @@ from PyQt5.QtCore import pyqtSignal
 class MainTabWidget(QGroupBox):	
 
 	def __init__(self, player_instance):
-		self.inventory = player_instance.inventory
-		self.stats = player_instance.stats
+		self.player_instance = player_instance
 		self.initUI()
 		
 	def initUI(self):
@@ -14,39 +13,19 @@ class MainTabWidget(QGroupBox):
 		top_line = QHBoxLayout()
 		bottom_line = QHBoxLayout()
 		
-		for key, value in self.stats.items():
-			if(key=="CHARACTER_NAME"):
-				self.character=self.stats[key]
-			elif(key=="PLAYER_NAME"):
-				self.player=self.stats[key]
-			elif(key=="STRENGTH"):
-				self.strength=self.stats[key]
-			elif (key=="SIZE"):
-				self.size=self.stats[key]
-			elif (key=="CAPACITY"):
-				self.capacity=self.stats[key]
-				for i in range(int(self.capacity)):
-					self.inventory.append("")
-			elif (key=="HEALTH"):
-				self.health=self.stats[key]
-			elif (key=="EXTRA_HEALTH"):
-				self.health = int(self.health) + int(self.stats[key])
-				self.stats[key] = 0
-			elif (key=="LEVEL"):
-				self.level=self.stats[key]
-			else:
-				swidget = StatWidget(key, value)
-				bottom_line.addWidget(swidget)
-				swidget.widgetUpdate.connect(self.updateStat)
+		for key, value in self.player_instance.stats.items():
+			swidget = StatWidget(key, value)
+			bottom_line.addWidget(swidget)
+			swidget.widgetUpdate.connect(self.updateStat)
 		
-		super().__init__(self.character + " - Size: " + self.size + " - " + self.player)
+		super().__init__(self.player_instance.traits["CHARACTER"] + " - Size: " + self.player_instance.traits["SIZE"] + " - " + self.player_instance.traits["PLAYER"])
 		
 		
 		stat_stack = QVBoxLayout()
 		
-		self.levelbox = LabelBoxWidget("Level",self.level)
-		self.healthbox = LabelBoxWidget("Health",self.health)
-		self.strengthbox = LabelBoxWidget("Strength",self.strength)
+		self.levelbox = LabelBoxWidget("Level",self.player_instance.traits["LEVEL"])
+		self.healthbox = LabelBoxWidget("Health",self.player_instance.traits["HEALTH"])
+		self.strengthbox = LabelBoxWidget("Strength",self.player_instance.traits["STRENGTH"])
 		
 		self.levelbox.widgetUpdate.connect(self.updateStat)
 		self.healthbox.widgetUpdate.connect(self.updateStat)
@@ -85,7 +64,6 @@ class MainTabWidget(QGroupBox):
 		
 	def updateStat(self, key, value):
 		self.stats[key]=value
-		print(self.stats)
 		
 	def updateInventory(self, item, index):
 		self.inventory[index]=item
