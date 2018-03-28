@@ -9,21 +9,18 @@ class SkillWidget(QWidget):
 
 	def __init__(self, skills):
 		self.skills = skills
-		self.size=20
 		super().__init__()
 		self.initUI()
 		
 	def initUI(self):
 		list = QListWidget()
 		vbox = QVBoxLayout()
-		for i in range(self.size):
-			item = ListLineWidget("",i)
+		for i in range(len(self.skills)):
+			item = ListLineWidget(self.skills[i],i)
 			item.widgetUpdate.connect(self.valUpdate)
 			listWidgetItem = QListWidgetItem(list)
 			list.addItem(listWidgetItem)
 			list.setItemWidget(listWidgetItem, item)
-		for i in range (len(self.skills)):
-			self.valUpdate(self.skills[i],i)
 		vbox.addWidget(list)
 		self.setLayout(vbox)
 	
