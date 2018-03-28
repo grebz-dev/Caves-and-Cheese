@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout
 from PyQt5.QtCore import pyqtSignal
-from Player import ListLineWidget
+from main_tab import ListLineWidget
 
 
 class SkillWidget():
