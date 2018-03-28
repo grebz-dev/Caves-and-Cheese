@@ -9,8 +9,9 @@ CHARACTER_NAME=
 PLAYER_NAME=
 SIZE=
 
-#Distribute 50 points amongst ALL categories, including stats and fixed traits. If you
-#don't want to assign a value, mark the field 0. DO NOT LEAVE VALUES BLANK
+#Distribute 50 points amongst ALL categories, including stats and fixed traits. Health
+#can be buffed using points. If you don't want to assign a value, mark the field 0.
+#DO NOT LEAVE VALUES BLANK
 
 #Stats - boost rolls to determine actions
 Range=
@@ -25,7 +26,6 @@ Intelligence=
 
 #Traits - score alone determines ability to perform actions
 STRENGTH=
-EXTRA_HEALTH=
 CAPACITY=
 
 #Set by default
