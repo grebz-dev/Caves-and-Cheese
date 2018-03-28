@@ -52,7 +52,7 @@ class MainTabWidget(QGroupBox):
 		
 		top_line.addWidget(inventoryElement)
 		logo = QLabel(self)
-		logo.setPixmap(QPixmap(resource_path("logo-text.png")))
+		logo.setPixmap(QPixmap(resource_path("Images/logo-text.png")))
 		save_stack.addWidget(logo)
 
 		
