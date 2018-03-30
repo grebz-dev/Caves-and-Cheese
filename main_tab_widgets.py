@@ -89,7 +89,6 @@ class InventoryWidget(QGroupBox):
 class ListLineWidget(QLineEdit):
 	
 	widgetUpdate=pyqtSignal(str,int)
-
 	
 	def __init__(self, name, index):
 		self.name=name
