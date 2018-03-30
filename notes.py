@@ -15,5 +15,5 @@ class NotesWidget(QWidget):
 		layout.addWidget(textedit)
 		self.setLayout(layout)
 		
-	def valUpdate(self, name):
-		self.widgetUpdate.emit(name)
+	def valUpdate(self):
+		self.widgetUpdate.emit()
