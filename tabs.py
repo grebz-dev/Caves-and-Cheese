@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QWidget, QAction, QTabWidget,QVBoxLayout,QPushButton
+from PyQt5.QtWidgets import QWidget, QAction, QTabWidget,QVBoxLayout,QPushButton,QFileDialog,QHBoxLayout
 from main_tab import MainTabWidget
 from notes import NotesWidget
 from armor import ArmorWidget
@@ -13,7 +13,7 @@ class MultiTabWidget(QWidget):
 		self.initUI()
 
 	def initUI(self):
-		self.layout = QVBoxLayout(self)
+		self.layout = QHBoxLayout(self)
 		# Initialize tab screen
 		self.tabs = QTabWidget()
 		self.tab1 = QWidget()	
@@ -23,9 +23,9 @@ class MultiTabWidget(QWidget):
 
 		# Add items to populate tabs
 		player = MainTabWidget(self.player)
-		armor = ArmorWidget()
-		notes = NotesWidget()
-		skills = SkillWidget(self.player.skills)
+		armor = ArmorWidget(self.player) 
+		notes = NotesWidget(self.player)
+		skills = SkillWidget(self.player)
  
 		# Add tabs
 		self.tabs.addTab(self.tab1,"Player")
@@ -56,3 +56,14 @@ class MultiTabWidget(QWidget):
 		# Add tabs to widget		
 		self.layout.addWidget(self.tabs)
 		self.setLayout(self.layout)
+		
+		# Add save button
+		self.save_button = QPushButton("Save Character")
+		self.save_button.clicked.connect(self.saveDialog)
+		self.tabs.setCornerWidget(self.save_button)
+		
+	def saveDialog(self):
+		options = QFileDialog.Options()
+		filename, _ = QFileDialog.getSaveFileName(self,"Save Character","","Caves and Cheese Files (*.cnc)", options=options)
+		if filename:
+			self.player.export(filename)

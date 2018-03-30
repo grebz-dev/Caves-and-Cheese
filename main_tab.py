@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem, QLabel, QFileDialog
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem, QLabel
 from PyQt5.QtGui import QIcon, QPixmap, QIntValidator
 from PyQt5.QtCore import pyqtSignal
 import sys, os
@@ -7,68 +7,51 @@ import random
 class MainTabWidget(QGroupBox):	
 
 	def __init__(self, player):
-		self.player = player
-		self.initUI()
+		self.initUI(player)
 		
-	def initUI(self):
+	def initUI(self,player):
 		
 		top_line = QHBoxLayout()
 		bottom_line = QHBoxLayout()
 		
-		for key, value in self.player.stats.items():
+		for key, value in player.stats.items():
 			swidget = StatWidget(key, value)
 			bottom_line.addWidget(swidget)
-			swidget.widgetUpdate.connect(self.player.updateStat)
+			swidget.widgetUpdate.connect(player.updateStat)
 		
-		super().__init__(self.player.traits["CHARACTER_NAME"] + " - Size: " + self.player.traits["SIZE"] + " - " + self.player.traits["PLAYER_NAME"])
+		super().__init__(player.traits["CHARACTER_NAME"] + " - Size: " + player.traits["SIZE"] + " - " + player.traits["PLAYER_NAME"])
 		
 		
 		stat_stack = QVBoxLayout()
 		
-		self.levelbox = LabelBoxWidget("Level",self.player.traits["LEVEL"])
-		self.healthbox = LabelBoxWidget("Health",self.player.traits["HEALTH"])
-		self.strengthbox = LabelBoxWidget("Strength",self.player.traits["STRENGTH"])
+		self.levelbox = LabelBoxWidget("Level",player.traits["LEVEL"])
+		self.healthbox = LabelBoxWidget("Health",player.traits["HEALTH"])
+		self.strengthbox = LabelBoxWidget("Strength",player.traits["STRENGTH"])
 		
-		self.levelbox.widgetUpdate.connect(self.player.updateStat)
-		self.healthbox.widgetUpdate.connect(self.player.updateStat)
-		self.strengthbox.widgetUpdate.connect(self.player.updateStat)
+		self.levelbox.widgetUpdate.connect(player.updateStat)
+		self.healthbox.widgetUpdate.connect(player.updateStat)
+		self.strengthbox.widgetUpdate.connect(player.updateStat)
 		
 		stat_stack.addWidget(self.levelbox)
 		stat_stack.addWidget(self.healthbox)
 		stat_stack.addWidget(self.strengthbox)
 		
-		save_stack = QVBoxLayout()
 		top_line.addLayout(stat_stack)
 		
-		self.save_button = QPushButton("Save Character")
-		self.save_button.setFixedWidth(200)
-		self.save_button.clicked.connect(self.saveDialog)
-		self.save_button_layout = QHBoxLayout()
-		self.save_button_layout.addWidget(self.save_button)
-		
-		save_stack.addLayout(self.save_button_layout)
-		
-		inventoryElement = InventoryWidget(self.player.traits["CAPACITY"],self.player.inventory)
-		inventoryElement.widgetUpdate.connect(self.player.updateInventory)
+
+				
+		inventoryElement = InventoryWidget(player.traits["CAPACITY"],player.inventory)
+		inventoryElement.widgetUpdate.connect(player.updateInventory)
 		
 		top_line.addWidget(inventoryElement)
 		logo = QLabel(self)
 		logo.setPixmap(QPixmap(resource_path("Images/logo-text.png")))
-		save_stack.addWidget(logo)
-
-		
-		top_line.addLayout(save_stack)
+		top_line.addWidget(logo)
 		
 		vbox = QVBoxLayout()
 		vbox.addLayout(top_line)
 		vbox.addLayout(bottom_line)
 		self.setLayout(vbox)
-	
-	def saveDialog(self):
-		options = QFileDialog.Options()
-		filename, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()","","Caves and Cheese Files (*.cnc)", options=options)
-		if filename:
-			self.export(filename)
 			
 class StatWidget(QGroupBox):
 	
@@ -140,14 +123,12 @@ class InventoryWidget(QGroupBox):
 	def initUI(self):
 		list = QListWidget()
 		vbox = QVBoxLayout()
-		for i in range(self.capacity):
-			item = ListLineWidget("",i)
+		for i in range(len(self.inventory)):
+			item = ListLineWidget(self.inventory[i],i)
 			item.widgetUpdate.connect(self.valUpdate)
 			listWidgetItem = QListWidgetItem(list)
 			list.addItem(listWidgetItem)
 			list.setItemWidget(listWidgetItem, item)
-		for i in range (len(self.inventory)):
-			self.valUpdate(self.inventory[i],i)
 		vbox.addWidget(list)
 		self.setLayout(vbox)
 	
