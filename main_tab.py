@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem, QLabel
 from PyQt5.QtGui import QIcon, QPixmap, QIntValidator
 from PyQt5.QtCore import pyqtSignal
+from main_tab_widgets import StatWidget, LabelBoxWidget,InventoryWidget
 import sys, os
-import random
 
 class MainTabWidget(QGroupBox):	
 

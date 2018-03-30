@@ -1,3 +1,9 @@
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem, QLabel
+from PyQt5.QtGui import QIcon, QPixmap, QIntValidator
+from PyQt5.QtCore import pyqtSignal
+import random
+
+
 class StatWidget(QGroupBox):
 	
 	widgetUpdate=pyqtSignal(str,str)
