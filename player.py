@@ -5,7 +5,6 @@ class Player():
 	def __init__(self, statFile):
 		self.inventory = []
 		self.stats = {}
-		self.notes = []
 		self.skills = []
 		self.skill_num = 20
 		self.health = 20
@@ -27,7 +26,7 @@ class Player():
 				if line.startswith('^'):
 					self.skills.append(line[1:])
 				if line.startswith('?'):
-					self.notes.append(line[1:])
+					self.notes = line[1:]
 				elif ("=" in line):
 					split = line.split('=')
 					self.stats[split[0]]=split[1].strip()
