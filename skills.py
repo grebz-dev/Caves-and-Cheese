@@ -9,7 +9,7 @@ class SkillWidget(QWidget):
 
 	def __init__(self, player):
 		super().__init__()
-		self.initUI()
+		self.initUI(player)
 		
 	def initUI(self, player):
 		list = QListWidget()

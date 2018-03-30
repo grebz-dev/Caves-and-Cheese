@@ -3,11 +3,11 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPlainTextEdit
 
 class NotesWidget(QWidget):
 
-	def __init__(self):
+	def __init__(self,player):
 			super().__init__()
-			self.initUI()
+			self.initUI(player)
 		
-	def initUI(self):
+	def initUI(self, player):
 		layout = QVBoxLayout()
 		textedit = QPlainTextEdit()
 		layout.addWidget(textedit)

@@ -4,11 +4,11 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QApplicat
 
 class ArmorWidget(QWidget):
 	
-	def __init__(self):
+	def __init__(self, player):
 		super().__init__()
-		self.initUI()
+		self.initUI(player)
 	
-	def initUI(self):
+	def initUI(self, player):
 		hbox = QHBoxLayout()
 		vbox = QVBoxLayout()
 		
