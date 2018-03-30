@@ -7,6 +7,7 @@ class Player():
 		self.stats = {}
 		self.notes = []
 		self.skills = []
+		self.skill_num = 20
 		self.health = 20
 		self.traits = {"CHARACTER_NAME":'',"PLAYER_NAME":'',"STRENGTH":'',"CAPACITY":'',"HEALTH":'',"LEVEL":'',"SIZE":''}
 		self.parseStats(statFile)
@@ -35,6 +36,9 @@ class Player():
 			if (key in self.traits):
 				self.traits[key] = value
 				del self.stats[key]
+				
+		while len(self.inventory) < int(self.traits["CAPACITY"]):
+			self.inventory.append("")
 	
 	def updateStat(self, key, value):
 		self.stats[key]=value
