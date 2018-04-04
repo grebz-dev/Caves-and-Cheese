@@ -1,6 +1,7 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QLCDNumber, QListWidget, QListWidgetItem, QLabel
-from PyQt5.QtGui import QIcon, QPixmap, QIntValidator
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGroupBox, QHBoxLayout, QLineEdit, QPushButton, QListWidget, QListWidgetItem, QLabel
+from PyQt5.QtGui import QIcon, QPixmap, QIntValidator, QFont
 from PyQt5.QtCore import pyqtSignal
+from PyQt5.Qt import Qt
 import random
 
 
@@ -19,7 +20,13 @@ class StatWidget(QGroupBox):
 		self.validator = QIntValidator()
 		self.statLine.setValidator(self.validator)
 		self.rollButton = QPushButton("Roll", self)
-		self.rollNumber = QLCDNumber(self)
+		
+		font = QFont("Times", 14)
+		self.rollNumber = QLabel(self)
+		self.rollNumber.setFont(font)
+		self.rollNumber.setText("0")
+		self.rollNumber.setAlignment(Qt.AlignCenter)
+
 		
 		self.rollButton.clicked.connect(self.roll)
 		
@@ -28,7 +35,6 @@ class StatWidget(QGroupBox):
 		vbox.addWidget(self.rollButton)
 		vbox.addWidget(self.rollNumber)
 		self.setLayout(vbox)
-		self.setFixedHeight(200)
 		self.statLine.textChanged.connect(self.valUpdate)
 	
 	def valUpdate(self):
@@ -36,7 +42,8 @@ class StatWidget(QGroupBox):
 		self.buff = self.statLine.text()
 	
 	def roll(self):
-		self.rollNumber.display(random.randint(1,20 + int(self.buff)))
+		if(self.buff!=''):
+			self.rollNumber.setText(str(random.randint(1,20 + int(self.buff))))
 
 class LabelBoxWidget(QGroupBox):
 	
