@@ -2,55 +2,11 @@ from PyQt5.QtWidgets import QWidget, QFileDialog, QVBoxLayout, QHBoxLayout, QPus
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import pyqtSignal
 import sys, os
-
-template ="""#Caves and Cheese player design form 
-
-CHARACTER_NAME=
-PLAYER_NAME=
-SIZE=
-
-#Distribute 50 points amongst ALL categories, including stats and fixed traits. Health
-#can be buffed using points. If you don't want to assign a value, mark the field 0.
-#DO NOT LEAVE VALUES BLANK
-
-#Stats - boost rolls to determine actions
-Range=
-Magic=
-Melee=
-Defense=
-Charisma=
-Healing=
-Dexterity=
-Intelligence=
-
-
-#Traits - score alone determines ability to perform actions
-STRENGTH=
-CAPACITY=
-
-#Set by default
-HEALTH=20
-LEVEL=1
-
-#Items - The following are items that your character is carrying. Obviously, you cannot
-#        carry more items than your CAPACITY would allow. Extra items will be truncated.
-#        Each item MUST be preceded by a @ symbol, or else it will be parsed as a stat.
-
-@Rope
-@Provisions (heals +5) x2
-@Hunting Knife (Damage cap 5)
-@Flint and Striker
-@Small hatchet (Damage cap 3)
-@Gold
-"""
-
-def newTemplateFile(filename):
-	file = open(filename,'w+')
-	file.write(template)
+from main_tab_widgets import LabelBoxWidget
 				
 class SplashWidget(QWidget):
 	
-	fileOpened=pyqtSignal(str)
+	start=pyqtSignal(str)
 
 	def __init__(self):
 		super().__init__()
@@ -59,36 +15,44 @@ class SplashWidget(QWidget):
 	def initUI(self):
 		
 		vbox = QVBoxLayout(self)
+		top_hbox = QHBoxLayout(self)
 		
 		logo = QLabel(self)
 		logo.setPixmap(QPixmap(resource_path("Images/splash.png")))
-		vbox.addWidget(logo)
+		top_hbox.addWidget(logo)
+
+		self.character_name = LabelBoxWidget("New Character Name","")
+		self.player_name = LabelBoxWidget("New Player Name","")
+		self.size = LabelBoxWidget("New Character Size")
+		top_hbox.addwidget(self.player_name)
+		top_hbox.addWidget(self.character_name)
+		top_hbox.addWidget(self.size)
 		
-		hbox = QHBoxLayout(self)
-		hbox.addStretch()
+		vbox.addLayout(top_hbox)
+		
+		bottom_hbox = QHBoxLayout(self)
+		bottom_hbox.addStretch()
 		self.open_button = QPushButton("Open Character")
-		self.new_button = QPushButton("New Empty Character Template")
+		self.new_button = QPushButton("New Character")
 		
 		self.open_button.clicked.connect(self.openDialog)
-		self.new_button.clicked.connect(self.newTemplateDialog)
+		self.new_button.clicked.connect(self.newCharacter)
 		
-		hbox.addWidget(self.open_button)
-		hbox.addWidget(self.new_button)
+		bottom_hbox.addWidget(self.open_button)
+		bottom_hbox.addWidget(self.new_button)
 		
-		vbox.addLayout(hbox)
+		vbox.addLayout(bottom_hbox)
 		self.setLayout(vbox)
 	
 	def openDialog(self):    
 		options = QFileDialog.Options()
 		filename, _ = QFileDialog.getOpenFileName(None,"QFileDialog.getOpenFileName()", "","Caves and Cheese Files (*.cnc)", options=options)
 		if filename:
-			self.fileOpened.emit(filename)
-	
-	def newTemplateDialog(self):
-		options = QFileDialog.Options()
-		filename, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()","","Caves and Cheese Files (*.cnc)", options=options)
-		if filename:
-			newTemplateFile(filename)
+			self.start.emit(pickle.load(open(filename, "rb" )))
+			
+	def newCharacter(self):
+		
+		self.start.emit(Player())
 
 def resource_path(relative_path):
 	if hasattr(sys, '_MEIPASS'):

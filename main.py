@@ -18,11 +18,10 @@ class MainWindow(QMainWindow):
 		self.setCentralWidget(self.splash)
 		self.setWindowIcon(QtGui.QIcon(resource_path('logo.png')))
 		self.move(300,500)
-		self.splash.fileOpened.connect(self.initGame)
+		self.splash.start.connect(self.initGame)
 	
 	@pyqtSlot(str)
-	def initGame(self, filename):
-		player = Player(filename)
+	def initGame(self, player):
 		tabs = MultiTabWidget(player)
 		self.setCentralWidget(tabs)
 		self.adjustSize()

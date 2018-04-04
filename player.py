@@ -3,14 +3,13 @@ import pickle
 
 class Player():	
 
-	def __init__(self, statFile):
+	def __init__(self):
 		self.inventory = []
 		self.stats = {"Range":'0', "Magic":'0' , "Melee":'0' , "Defense":'0' , "Charisma":'0' , "Healing":'0' , "Dexterity":'0' , "Intelligence":'0'}
 		self.skills = []
 		self.skill_num = 20
 		self.health = 20
 		self.traits = {"CHARACTER_NAME":'',"PLAYER_NAME":'',"STRENGTH":'',"CAPACITY":'',"HEALTH":'',"LEVEL":'',"SIZE":''}
-		self.parseStats(statFile)
 
 	def updateStat(self, key, value):
 		self.stats[key]=value
