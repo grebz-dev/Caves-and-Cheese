@@ -4,6 +4,7 @@ from PyQt5.QtCore import pyqtSignal
 import sys, os
 from main_tab_widgets import LabelBoxWidget
 from player import Player
+import pickle
 				
 class SplashWidget(QWidget):
 	
