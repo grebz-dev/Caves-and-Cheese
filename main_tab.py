@@ -28,9 +28,9 @@ class MainTabWidget(QGroupBox):
 		self.healthbox = LabelBoxWidget("Health",player.traits["HEALTH"])
 		self.strengthbox = LabelBoxWidget("Strength",player.traits["STRENGTH"])
 		
-		self.levelbox.widgetUpdate.connect(player.updateStat)
-		self.healthbox.widgetUpdate.connect(player.updateStat)
-		self.strengthbox.widgetUpdate.connect(player.updateStat)
+		self.levelbox.widgetUpdate.connect(player.updateTrait)
+		self.healthbox.widgetUpdate.connect(player.updateTrait)
+		self.strengthbox.widgetUpdate.connect(player.updateTrait)
 		
 		stat_stack.addWidget(self.levelbox)
 		stat_stack.addWidget(self.healthbox)

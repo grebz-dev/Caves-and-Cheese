@@ -21,12 +21,11 @@ class Player():
 	def updateStat(self, key, value):
 		self.stats[key]=value
 		
+	def updateTrait(self, key, value):
+		self.traits[key]=value
+		
 	def updateInventory(self, item, index):
 		self.inventory[index]=item
-	
-	
-	def updateStat(self, key, value):
-		self.stats[key]=value
 		
 	def updateInventory(self, item, index):
 		self.inventory[index]=item
