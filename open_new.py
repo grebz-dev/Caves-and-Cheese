@@ -24,9 +24,9 @@ class SplashWidget(QWidget):
 		vbox = QVBoxLayout()
 		hbox.addLayout(vbox)
 		
-		self.character_name = LabelBoxWidget("New Character Name","")
-		self.player_name = LabelBoxWidget("Player Name","")
-		self.size = LabelBoxWidget("New Character Size","")
+		self.character_name = LabelBoxWidget("New Character Name","",valType = None, width = None, placeholder = "Enter Character Name")
+		self.player_name = LabelBoxWidget("Player Name","",valType = None, width = None, placeholder = "Enter Your Name")
+		self.size = LabelBoxWidget("New Character Size","",valType = None, width = None, placeholder = "Enter Character Size")
 		vbox.addWidget(self.character_name)
 		vbox.addWidget(self.player_name)
 		vbox.addWidget(self.size)
