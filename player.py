@@ -44,6 +44,9 @@ class Player():
 		
 	def updateInventory(self, item, index):
 		self.inventory[index]=item
+		
+	def updateSkill(self, skill, index):
+		self.skills[index]=skill
 	
 	def export(self, filename):
 		file = open(filename,'w+')
