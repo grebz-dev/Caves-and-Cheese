@@ -34,22 +34,22 @@ class MultiTabWidget(QWidget):
 		self.tabs.addTab(self.tab4,"Skills")
  
 		# Create first tab
-		self.tab1.layout = QVBoxLayout(self)
+		self.tab1.layout = QVBoxLayout()
 		self.tab1.layout.addWidget(player)
 		self.tab1.setLayout(self.tab1.layout)
 		
 		# Create second tab
-		self.tab2.layout = QVBoxLayout(self)
+		self.tab2.layout = QVBoxLayout()
 		self.tab2.layout.addWidget(armor)
 		self.tab2.setLayout(self.tab2.layout)
 		
 		# Create third tab
-		self.tab3.layout = QVBoxLayout(self)
+		self.tab3.layout = QVBoxLayout()
 		self.tab3.layout.addWidget(notes)
 		self.tab3.setLayout(self.tab3.layout)
 			
 		# Create third tab
-		self.tab4.layout = QVBoxLayout(self)
+		self.tab4.layout = QVBoxLayout()
 		self.tab4.layout.addWidget(skills)
 		self.tab4.setLayout(self.tab4.layout)
 
