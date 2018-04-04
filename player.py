@@ -1,10 +1,11 @@
 import sys, os
+import pickle
 
 class Player():	
 
 	def __init__(self, statFile):
 		self.inventory = []
-		self.stats = {}
+		self.stats = {"Range":'0', "Magic":'0' , "Melee":'0' , "Defense":'0' , "Charisma":'0' , "Healing":'0' , "Dexterity":'0' , "Intelligence":'0'}
 		self.skills = []
 		self.skill_num = 20
 		self.health = 20
