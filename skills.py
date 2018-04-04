@@ -5,8 +5,6 @@ from main_tab_widgets import ListLineWidget
 
 class SkillWidget(QWidget):
 
-	widgetUpdate=pyqtSignal(str,int)
-
 	def __init__(self, player):
 		super().__init__()
 		self.initUI(player)
@@ -20,7 +18,7 @@ class SkillWidget(QWidget):
 		
 		for i in range(len(player.skills)):
 			item = ListLineWidget(player.skills[i],i)
-			item.widgetUpdate.connect(self.valUpdate)
+			item.widgetUpdate.connect(lambda name, index, player=player : self.valUpdate(name, index, player))
 			listWidgetItem = QListWidgetItem(list)
 			list.addItem(listWidgetItem)
 			list.setItemWidget(listWidgetItem, item)
@@ -28,5 +26,5 @@ class SkillWidget(QWidget):
 		vbox.addWidget(list)
 		self.setLayout(vbox)
 	
-	def valUpdate(self, name, index):
-		self.widgetUpdate.emit(name,index)
+	def valUpdate(self, name, index, player):
+		player.updateSkill(name,index)
