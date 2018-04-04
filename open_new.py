@@ -24,10 +24,10 @@ class SplashWidget(QWidget):
 		hbox.addLayout(vbox)
 		
 		self.character_name = LabelBoxWidget("New Character Name","")
-		self.player_name = LabelBoxWidget("New Player Name","")
+		self.player_name = LabelBoxWidget("Player Name","")
 		self.size = LabelBoxWidget("New Character Size","")
-		vbox.addWidget(self.player_name)
 		vbox.addWidget(self.character_name)
+		vbox.addWidget(self.player_name)
 		vbox.addWidget(self.size)
 		
 		
@@ -41,7 +41,6 @@ class SplashWidget(QWidget):
 		button_hbox.addWidget(self.open_button)
 		button_hbox.addWidget(self.new_button)
 		vbox.addLayout(button_hbox)
-		
 		
 			
 	def openDialog(self):    
