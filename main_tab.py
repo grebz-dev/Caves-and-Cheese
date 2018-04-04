@@ -37,8 +37,6 @@ class MainTabWidget(QGroupBox):
 		stat_stack.addWidget(self.strengthbox)
 		
 		top_line.addLayout(stat_stack)
-		
-
 				
 		inventoryElement = InventoryWidget(player.traits["CAPACITY"],player.inventory)
 		inventoryElement.widgetUpdate.connect(player.updateInventory)
