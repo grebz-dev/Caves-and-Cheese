@@ -63,7 +63,8 @@ class LabelBoxWidget(QGroupBox):
 		self.statLine.textChanged.connect(self.valUpdate)
 	
 	def valUpdate(self):
-		self.widgetUpdate.emit(self.name,self.statLine.text())
+		self.value = self.statLine.text()
+		self.widgetUpdate.emit(self.name,self.value)
 		
 class InventoryWidget(QGroupBox):
 
