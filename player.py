@@ -9,7 +9,14 @@ class Player():
 		self.skills = []
 		self.skill_num = 20
 		self.health = 20
-		self.traits = {"CHARACTER_NAME":'',"PLAYER_NAME":'',"STRENGTH":'',"CAPACITY":'',"HEALTH":'',"LEVEL":'',"SIZE":''}
+		self.traits = {"CHARACTER_NAME":'',"PLAYER_NAME":'',"STRENGTH":'',"CAPACITY":'10',"HEALTH":'',"LEVEL":'',"SIZE":''}
+		while len(self.inventory) < int(self.traits["CAPACITY"]):
+			self.inventory.append("")
+			
+	def init_new(self,character_name, player_name,size):
+		self.traits["CHARACTER_NAME"]=character_name
+		self.traits["SIZE"]=size
+		self.traits["PLAYER_NAME"]=player_name
 
 	def updateStat(self, key, value):
 		self.stats[key]=value
@@ -35,9 +42,6 @@ class Player():
 			if (key in self.traits):
 				self.traits[key] = value
 				del self.stats[key]
-				
-		while len(self.inventory) < int(self.traits["CAPACITY"]):
-			self.inventory.append("")
 	
 	def updateStat(self, key, value):
 		self.stats[key]=value

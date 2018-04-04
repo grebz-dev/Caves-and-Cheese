@@ -20,7 +20,7 @@ class MainWindow(QMainWindow):
 		self.move(300,500)
 		self.splash.start.connect(self.initGame)
 	
-	@pyqtSlot(str)
+	@pyqtSlot(Player)
 	def initGame(self, player):
 		tabs = MultiTabWidget(player)
 		self.setCentralWidget(tabs)

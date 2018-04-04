@@ -42,10 +42,11 @@ class LabelBoxWidget(QGroupBox):
 	
 	widgetUpdate=pyqtSignal(str,str)
 
-	def __init__(self, name, value, valType = None):
+	def __init__(self, name, value, valType = None, width = None):
 		self.name = name
 		self.value = value
 		self.valType = valType
+		self.width = width
 		super().__init__(name)
 		self.initUI()
 		
@@ -57,7 +58,8 @@ class LabelBoxWidget(QGroupBox):
 		vbox = QVBoxLayout()
 		vbox.addWidget(self.statLine)
 		self.setLayout(vbox)
-		self.setFixedWidth(150)
+		if(self.width):
+			self.setFixedWidth(self.width)
 		self.statLine.textChanged.connect(self.valUpdate)
 	
 	def valUpdate(self):
