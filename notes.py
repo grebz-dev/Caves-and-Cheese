@@ -3,8 +3,6 @@ from PyQt5.QtCore import pyqtSignal
 
 class NotesWidget(QWidget):
 
-	widgetUpdate=pyqtSignal()
-
 	def __init__(self,player):
 		super().__init__()
 		self.initUI(player)
@@ -13,9 +11,9 @@ class NotesWidget(QWidget):
 		layout = QVBoxLayout()
 		self.textedit = QPlainTextEdit()
 
-		self.textedit.textChanged.connect(self.valUpdate)
+		self.textedit.textChanged.connect(lambda text, player=player: self.valUpdate(text, player)
 		layout.addWidget(self.textedit)
 		self.setLayout(layout)
 		
-	def valUpdate(self):
-		self.widgetUpdate.emit()
+	def valUpdate(self, text, player):
+		player.updateNotes(text)

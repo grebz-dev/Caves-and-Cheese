@@ -47,7 +47,10 @@ class Player():
 		
 	def updateSkill(self, skill, index):
 		self.skills[index]=skill
-	
+		
+	def updateNotes(self, text):
+		self.notes=text
+		
 	def export(self, filename):
 		file = open(filename,'w+')
 		
