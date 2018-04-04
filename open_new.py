@@ -23,7 +23,7 @@ class SplashWidget(QWidget):
 
 		self.character_name = LabelBoxWidget("New Character Name","")
 		self.player_name = LabelBoxWidget("New Player Name","")
-		self.size = LabelBoxWidget("New Character Size")
+		self.size = LabelBoxWidget("New Character Size","")
 		top_hbox.addwidget(self.player_name)
 		top_hbox.addWidget(self.character_name)
 		top_hbox.addWidget(self.size)
