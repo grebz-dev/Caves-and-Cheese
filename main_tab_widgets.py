@@ -42,15 +42,16 @@ class LabelBoxWidget(QGroupBox):
 	
 	widgetUpdate=pyqtSignal(str,str)
 
-	def __init__(self, name, value, validator = None):
+	def __init__(self, name, value, valType = None):
 		self.name = name
 		self.value = value
+		self.valType = valType
 		super().__init__(name)
 		self.initUI()
 		
 	def initUI(self):
 		self.statLine = QLineEdit(str(self.value), self)
-		if(validator=='int'):
+		if(self.valType=='int'):
 			self.validator = QIntValidator()
 			self.statLine.setValidator(self.validator)
 		vbox = QVBoxLayout()
