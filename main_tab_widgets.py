@@ -59,7 +59,7 @@ class LabelBoxWidget(QGroupBox):
 		self.initUI()
 		
 	def initUI(self):
-		self.statLine = QLineEdit(str(self.value), self)
+		self.statLine = QLineEdit(self.value,self)
 		self.statLine.textChanged.connect(self.valUpdate)
 		if(self.placeholder):
 			self.statLine.setPlaceholderText(self.placeholder)
@@ -71,10 +71,9 @@ class LabelBoxWidget(QGroupBox):
 		self.setLayout(vbox)
 		if(self.width):
 			self.setFixedWidth(self.width)
-		self.statLine.textChanged.connect(self.valUpdate)
 	
-	def valUpdate(self):
-		self.value = self.statLine.text()
+	def valUpdate(self, value):
+		self.value = value
 		self.widgetUpdate.emit(self.name,self.value)
 		
 class InventoryWidget(QGroupBox):

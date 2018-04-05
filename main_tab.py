@@ -24,9 +24,9 @@ class MainTabWidget(QGroupBox):
 		
 		stat_stack = QVBoxLayout()
 		
-		self.levelbox = LabelBoxWidget("Level",player.traits["LEVEL"])
-		self.healthbox = LabelBoxWidget("Health",player.traits["HEALTH"])
-		self.strengthbox = LabelBoxWidget("Strength",player.traits["STRENGTH"])
+		self.levelbox = LabelBoxWidget("Level",player.traits["Level"])
+		self.healthbox = LabelBoxWidget("Health",player.traits["Health"])
+		self.strengthbox = LabelBoxWidget("Strength",player.traits["Strength"])
 		
 		self.levelbox.widgetUpdate.connect(player.updateTrait)
 		self.healthbox.widgetUpdate.connect(player.updateTrait)
