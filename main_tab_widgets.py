@@ -60,6 +60,7 @@ class LabelBoxWidget(QGroupBox):
 		
 	def initUI(self):
 		self.statLine = QLineEdit(str(self.value), self)
+		self.statLine.textChanged.connect(self.valUpdate)
 		if(self.placeholder):
 			self.statLine.setPlaceholderText(self.placeholder)
 		if(self.valType=='int'):
