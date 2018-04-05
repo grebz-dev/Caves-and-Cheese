@@ -9,6 +9,7 @@ class Player():
 		self.skills = []
 		self.skill_num = 20
 		self.health = 20
+		self.armor = {"Head":["",""],"Torso":["",""],"Arms":["",""],"Legs":["",""],"Feet":["",""]}
 		self.traits = {"CHARACTER_NAME":'',"PLAYER_NAME":'',"STRENGTH":'',"CAPACITY":'10',"HEALTH":'',"LEVEL":'',"SIZE":''}
 		while len(self.inventory) < int(self.traits["CAPACITY"]):
 			self.inventory.append("")
@@ -35,6 +36,9 @@ class Player():
 		
 	def updateNotes(self, text):
 		self.notes=text
+		
+	def updateArmor(self, location, item, buff):
+		self.armor[location]=[item,buff]
 	
 	def export(self, filename):
 		pickle.dump(self, open(filename,'wb'))
