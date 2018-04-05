@@ -15,7 +15,7 @@ class ArmorWidget(QWidget):
 		
 		for key, value in player.armor.items():
 			widget = ArmorItemWidget(key,value[0],value[1])
-			widget.armorItem.textChanged.connect(lambda location, item, buff, player=player : self.valUpdate(location, item, buff, player))
+			widget.widgetUpdate.connect(lambda location, item, buff, player=player : self.valUpdate(location, item, buff, player))
 			vbox.addWidget(widget)
 		
 		armor_guy = QLabel(self)
@@ -25,8 +25,8 @@ class ArmorWidget(QWidget):
 		self.setLayout(hbox)
 		self.setFixedHeight(self.sizeHint().height())
 		
-		def valUpdate(self, location, item, buff, player):
-			player.updateArmor(location, item, buff)
+	def valUpdate(self, location, item, buff, player):
+		player.updateArmor(location, item, buff)
 
 class ArmorItemWidget(QGroupBox):
 
@@ -43,8 +43,10 @@ class ArmorItemWidget(QGroupBox):
 		vbox = QVBoxLayout()
 		self.armorItem = QLineEdit(self.name)
 		self.armorItem.setPlaceholderText("Enter name of item")
+		self.armorItem.textChanged.connect(self.valUpdate)
 		self.buffField = QLineEdit(self.buff)
 		self.buffField.setPlaceholderText("Enter item buff or quality")
+		self.buffField.textChanged.connect(self.valUpdate)
 		vbox.addWidget(self.armorItem)
 		vbox.addWidget(self.buffField)
 		self.setLayout(vbox)
@@ -52,7 +54,7 @@ class ArmorItemWidget(QGroupBox):
 	def valUpdate(self):
 		self.buff = self.buffField.text()
 		self.name = self.armorItem.text()
-		self.widgetUpdate.emit(self.location,self.name, self.buff)
+		self.widgetUpdate.emit(self.location, self.name, self.buff)
 		 
 def resource_path(relative_path):
 	if hasattr(sys, '_MEIPASS'):
