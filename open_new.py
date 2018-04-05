@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QWidget, QFileDialog, QVBoxLayout, QHBoxLayout, QPus
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import pyqtSignal
 import PyQt5
+from PyQt5.Qt import QSizePolicy
 import sys, os
 from main_tab_widgets import LabelBoxWidget
 from player import Player
@@ -56,7 +57,7 @@ class SplashWidget(QWidget):
 				msg.setIcon(QMessageBox.Critical)
 				msg.setText("Error: Could not open file")
 				msg.setDetailedText(str(e))
-				msg.setInformativeText("You could be trying to open a save incompatible with this version of CnC")
+				msg.setInformativeText("File may be incompatible with this C&C version		")
 				msg.setStandardButtons(QMessageBox.Close)
 				msg.setWindowTitle("File Open Error")
 				msg.show()
