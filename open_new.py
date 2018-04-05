@@ -1,6 +1,7 @@
-from PyQt5.QtWidgets import QWidget, QFileDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel
+from PyQt5.QtWidgets import QWidget, QFileDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QMessageBox
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import pyqtSignal
+import PyQt5
 import sys, os
 from main_tab_widgets import LabelBoxWidget
 from player import Player
@@ -48,8 +49,18 @@ class SplashWidget(QWidget):
 		options = QFileDialog.Options()
 		filename, _ = QFileDialog.getOpenFileName(None,"QFileDialog.getOpenFileName()", "","Caves and Cheese Files (*.cnc)", options=options)
 		if filename:
-			self.start.emit(pickle.load(open(filename, "rb" )))
-			
+			try:
+				self.start.emit(pickle.load(open(filename, "rb" )))
+			except pickle.UnpicklingError as e:
+				msg = QMessageBox(self)
+				msg.setIcon(QMessageBox.Critical)
+				msg.setText("Error: Could not open file")
+				msg.setDetailedText(str(e))
+				msg.setInformativeText("You could be trying to open a save incompatible with this version of CnC")
+				msg.setStandardButtons(QMessageBox.Close)
+				msg.setWindowTitle("File Open Error")
+				msg.show()
+				
 	def newCharacter(self):
 		player = Player()
 		player.init_new(self.character_name.value,self.player_name.value,self.size.value)
