@@ -48,7 +48,7 @@ class SplashWidget(QWidget):
 			
 	def openDialog(self):    
 		options = QFileDialog.Options()
-		filename, _ = QFileDialog.getOpenFileName(None,"QFileDialog.getOpenFileName()", "","Caves and Cheese Files (*.cnc)", options=options)
+		filename, _ = QFileDialog.getOpenFileName(None,"Open Character", "","Caves and Cheese Files (*.cheese)", options=options)
 		if filename:
 			try:
 				self.start.emit(pickle.load(open(filename, "rb" )))

@@ -64,6 +64,6 @@ class MultiTabWidget(QWidget):
 		
 	def saveDialog(self):
 		options = QFileDialog.Options()
-		filename, _ = QFileDialog.getSaveFileName(self,"Save Character","","Caves and Cheese Files (*.cnc)", options=options)
+		filename, _ = QFileDialog.getSaveFileName(self,"Save Character","","Caves and Cheese Files (*.cheese)", options=options)
 		if filename:
 			self.player.export(filename)
