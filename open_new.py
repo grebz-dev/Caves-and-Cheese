@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QFileDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QMessageBox
+from PyQt5.QtWidgets import QWidget, QFileDialog, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QMessageBox, QGroupBox
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import pyqtSignal
 import PyQt5
@@ -23,19 +23,23 @@ class SplashWidget(QWidget):
 		logo.setPixmap(QPixmap(resource_path("Images/logo-text.png")))
 		hbox.addWidget(logo)
 
-		vbox = QVBoxLayout()
-		hbox.addLayout(vbox)
+		newCharacterLayout = QVBoxLayout()
+		stack = QVBoxLayout()
 		
-		self.character_name = LabelBoxWidget("New Character Name","",valType = None, width = None, placeholder = "Enter Character Name")
+		newCharacterBox = QGroupBox("New Character")
+		hbox.addLayout(stack)
+		
+		self.character_name = LabelBoxWidget("Character Name","",valType = None, width = None, placeholder = "Enter Character Name")
 		self.player_name = LabelBoxWidget("Player Name","",valType = None, width = None, placeholder = "Enter Your Name")
-		self.size = LabelBoxWidget("New Character Size","",valType = None, width = None, placeholder = "Enter Character Size")
-		vbox.addWidget(self.character_name)
-		vbox.addWidget(self.player_name)
-		vbox.addWidget(self.size)
-		
+		self.size = LabelBoxWidget("Character Size","",valType = None, width = None, placeholder = "Enter Character Size")
+		newCharacterLayout.addWidget(self.character_name)
+		newCharacterLayout.addWidget(self.size)
+		newCharacterLayout.addWidget(self.player_name)
+		newCharacterBox.setLayout(newCharacterLayout)
+		stack.addWidget(newCharacterBox)
 		
 		self.open_button = QPushButton("Open Character")
-		self.new_button = QPushButton("New Character")
+		self.new_button = QPushButton("Create Character")
 		
 		self.open_button.clicked.connect(self.openDialog)
 		self.new_button.clicked.connect(self.newCharacter)
@@ -43,8 +47,7 @@ class SplashWidget(QWidget):
 		button_hbox = QHBoxLayout()
 		button_hbox.addWidget(self.open_button)
 		button_hbox.addWidget(self.new_button)
-		vbox.addLayout(button_hbox)
-		
+		stack.addLayout(button_hbox)		
 			
 	def openDialog(self):    
 		options = QFileDialog.Options()

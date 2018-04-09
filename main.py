@@ -5,6 +5,7 @@ from open_new import SplashWidget
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtGui
 from player import Player
+
 	
 class MainWindow(QMainWindow):
 	
@@ -17,7 +18,6 @@ class MainWindow(QMainWindow):
 		self.splash=SplashWidget()
 		self.setCentralWidget(self.splash)
 		self.setWindowIcon(QtGui.QIcon(resource_path('logo.png')))
-		self.move(300,500)
 		self.splash.start.connect(self.initGame)
 	
 	@pyqtSlot(Player)
@@ -34,6 +34,7 @@ def resource_path(relative_path):
 if __name__ == '__main__':
 
 	app = QApplication(sys.argv)
+	#app.setStyleSheet()
 	w = MainWindow()
 	w.show()
 	sys.exit(app.exec_())
