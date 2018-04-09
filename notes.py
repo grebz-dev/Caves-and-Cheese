@@ -10,8 +10,8 @@ class NotesWidget(QWidget):
 	def initUI(self, player):
 		layout = QVBoxLayout()
 		self.textedit = QPlainTextEdit()
-
-		self.textedit.textChanged.connect(lambda text=self.textedit.toPlainText, player=player : self.valUpdate(text, player))
+		self.textedit.setPlainText(player.notes)
+		self.textedit.textChanged.connect(lambda: self.valUpdate(self.textedit.document().toPlainText(), player))
 		layout.addWidget(self.textedit)
 		self.setLayout(layout)
 		
