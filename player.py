@@ -9,6 +9,7 @@ class Player():
 		self.skills = []
 		self.skill_num = 20
 		self.health = 20
+		self.notes = ""
 		self.armor = {"Head":["",""],"Torso":["",""],"Arms":["",""],"Legs":["",""],"Feet":["",""]}
 		self.traits = {"CHARACTER_NAME":'',"PLAYER_NAME":'',"Strength":'',"CAPACITY":'10',"Health":'',"Level":'',"SIZE":''}
 		while len(self.inventory) < int(self.traits["CAPACITY"]):
